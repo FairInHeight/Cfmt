@@ -69,10 +69,8 @@ char *fmtstr(const char *input)
                 clr_(parsing);
                 continue;
             }
+            
 
-            // CHANGED:
-            // Do NOT decrement out_index here.
-            //
             // The '&' was never copied to the output. The backslash was
             // consumed by the \& detection block below, so the current
             // output index already points to the correct insertion point.
