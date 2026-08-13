@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "cfmt.h"
-#include "flags.h"
+#include "../internal/flags.h"
 #include "style.h"
 #include "color.h"
 #include "codec.h"
