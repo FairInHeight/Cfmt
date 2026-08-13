@@ -1,7 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <stdarg.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "cfmt.h"
 #include "flags.h"
@@ -81,7 +82,6 @@ char *fmtstr(const char *input)
                 fspec == 'r')
             {
                 style = decode_style(fspec);
-
                 ansi = encode_style(style);
             }
 
@@ -102,9 +102,7 @@ char *fmtstr(const char *input)
                 }
 
                 color = decode_color(fspec2);
-
                 ansi = encode_color(color, 'b');
-
                 // Consume the color digit.
                 index++;
             }
@@ -116,7 +114,6 @@ char *fmtstr(const char *input)
                      fspec == '9')
             {
                 color = decode_color(fspec);
-
                 ansi = encode_color(color, 'f');
             }
 
@@ -129,7 +126,6 @@ char *fmtstr(const char *input)
                 output[out_index++] = fspec;
 
                 clr_(parsing);
-                continue;
             }
 
             // Encoding failed.
@@ -260,8 +256,8 @@ char *fmtspec(char spec, va_list *args)
         return output;
     }
 
-    // %i
-    else if (spec == 'i')
+    // %i, %d
+    else if (spec == 'i' || spec == 'd')
     {
         int number = va_arg(*args, int);
 
@@ -415,6 +411,9 @@ char *fmtin(const char *input, va_list *args)
 }
 
 
+
+
+
 // printf wrapper with cfmt support.
 int printfx(const char *input, ...)
 {
@@ -437,6 +436,34 @@ int printfx(const char *input, ...)
 
     // printfx only prints the completed string.
     int result = printf("%s", output);
+
+    free(output);
+    va_end(args);
+
+    return result;
+}
+
+int snprintfx(char *str, size_t size, const char *input, ...)
+{
+    if (str == NULL || input == NULL)
+    {
+        return -1;
+    }
+
+    va_list args;
+    va_start(args, input);
+
+    // fmtin handles printf-style arguments and builds the final string.
+    char *output = fmtin(input, &args);
+
+    if (output == NULL)
+    {
+        va_end(args);
+        return -1;
+    }
+
+    // snprintf handles the destination buffer and size limit.
+    int result = snprintf(str, size, "%s", output);
 
     free(output);
     va_end(args);
