@@ -18,8 +18,14 @@ char *fmtstr(const char *input)
         return NULL;
     }
 
+    // Start with enough space for the original input plus '\0'.
     size_t output_size = strlen(input) + 1;
     char *output = malloc(output_size);
+
+    if (input == NULL)
+    {
+        return NULL;
+    }
 
     if (output == NULL)
     {
@@ -30,70 +36,103 @@ char *fmtstr(const char *input)
 
     for (size_t index = 0; input[index] != '\0'; index++)
     {
+        // Detect the complete \& sequence before copying either character.
+        // This consumes both '\' and '&' as cfmt syntax.
+        if (input[index] == '\\' && input[index + 1] == '&')
+        {
+            // The next character will be processed as the format specifier.
+            set_(parsing);
+
+            // Skip the '&'. The for-loop will advance to the specifier.
+            index++;
+
+            continue;
+        }
+
+        // Handle the character following \&.
         // Handle the character following \&.
         if (is_(parsing))
         {
             char fspec = input[index];
             char fspec2 = input[index + 1];
 
-            // Cancel formatting if the string ends after the specifier.
-            if (fspec2 == '\0')
+            // Incomplete format at end of string.
+            if (fspec == '\0')
             {
                 output[out_index++] = '&';
-                output[out_index++] = fspec;
 
                 clr_(parsing);
                 continue;
             }
 
-            // Validate foreground and background color codes.
-            if (fspec == 'h')
+            char *ansi = NULL;
+
+            // -------------------------
+            // STYLE
+            // -------------------------
+            if (fspec == 'b' ||
+                fspec == 'd' ||
+                fspec == 'i' ||
+                fspec == 'u' ||
+                fspec == 'k' ||
+                fspec == 'v' ||
+                fspec == 'n' ||
+                fspec == 't' ||
+                fspec == 'r')
             {
-                // Background colors require a second numeric color code.
-                if ((fspec2 < '0' || fspec2 > '7') && fspec2 != '9')
+                style = decode_style(fspec);
+
+                ansi = encode_style(style);
+            }
+
+            // -------------------------
+            // BACKGROUND COLOR
+            // -------------------------
+            else if (fspec == 'h')
+            {
+                if (!((fspec2 >= '0' && fspec2 <= '7') ||
+                      fspec2 == '9'))
                 {
-                    // Preserve the invalid format literally.
+                    // Invalid background format.
                     output[out_index++] = '&';
                     output[out_index++] = fspec;
 
                     clr_(parsing);
                     continue;
                 }
+
+                color = decode_color(fspec2);
+
+                ansi = encode_color(color, 'b');
+
+                // Consume the color digit.
+                index++;
             }
-            else if ((fspec < '0' || fspec > '7') && fspec != '9')
+
+            // -------------------------
+            // FOREGROUND COLOR
+            // -------------------------
+            else if ((fspec >= '0' && fspec <= '7') ||
+                     fspec == '9')
             {
-                // Invalid foreground color code. Preserve it literally.
+                color = decode_color(fspec);
+
+                ansi = encode_color(color, 'f');
+            }
+
+            // -------------------------
+            // INVALID
+            // -------------------------
+            else
+            {
                 output[out_index++] = '&';
                 output[out_index++] = fspec;
 
                 clr_(parsing);
                 continue;
             }
-            
 
-            // The '&' was never copied to the output. The backslash was
-            // consumed by the \& detection block below, so the current
-            // output index already points to the correct insertion point.
-
-            char *ansi;
-
-            // Generate the ANSI sequence for the requested format.
-            if (fspec == 'h')
-            {
-                // Background color: use the second character as the color code.
-                color = decode(fspec2);
-                ansi = encode(color, 'b');
-
-                // Consume the second character of the format specifier.
-                index++;
-            }
-            else
-            {
-                // Foreground color: use the first character as the color code.
-                color = decode(fspec);
-                ansi = encode(color, 'f');
-            }
-
+            // Encoding failed.
             if (ansi == NULL)
             {
                 free(output);
@@ -102,7 +141,6 @@ char *fmtstr(const char *input)
 
             size_t ansi_size = strlen(ansi);
 
-            // Expand the output buffer to make room for the ANSI sequence.
             char *new_output =
                 realloc(output, output_size + ansi_size);
 
@@ -116,41 +154,21 @@ char *fmtstr(const char *input)
             output = new_output;
             output_size += ansi_size;
 
-            // Insert the ANSI sequence where the cfmt code was located.
             memcpy(output + out_index, ansi, ansi_size);
             out_index += ansi_size;
 
             free(ansi);
 
-            // A valid format is now active.
-            // This lets newline handling reset the format automatically.
+            // A format is now active.
             set_(formatting);
 
-            // The format specifier has been fully processed.
+            // Parsing is complete.
             clr_(parsing);
 
             continue;
         }
 
-        // Detect \& and consume the escape backslash.
-        if (index > 0 &&
-            input[index] == '&' &&
-            input[index - 1] == '\\')
-        {
-            // The backslash was copied during the previous iteration.
-            // Remove it because it belongs to cfmt syntax.
-            out_index--;
-
-            // The next character is the formatting specifier.
-            set_(parsing);
-
-            continue;
-        }
-
         // Reset active formatting before copying a newline.
-        // The newline already exists in the input string, normally because
-        // fgets() stored the Enter key as '\n'. We insert the ANSI reset
-        // immediately before that existing newline.
         if (input[index] == '\n' && is_(formatting))
         {
             const char reset[] = "\033[0m";
@@ -173,15 +191,15 @@ char *fmtstr(const char *input)
             memcpy(output + out_index, reset, reset_size);
             out_index += reset_size;
 
-            // The format is no longer active after the reset.
+            // Formatting is no longer active after the reset.
             clr_(formatting);
         }
 
-        // Copy the current normal character.
+        // Copy a normal character.
         output[out_index++] = input[index];
     }
 
-    // Null-terminate the final formatted string.
+    // Null-terminate the final string.
     output[out_index] = '\0';
 
     return output;
