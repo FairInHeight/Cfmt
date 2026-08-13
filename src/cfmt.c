@@ -470,3 +470,29 @@ int snprintfx(char *str, size_t size, const char *input, ...)
 
     return result;
 }
+
+int fprintfx(FILE *stream, const char *input, ...)
+{
+    if (stream == NULL || input == NULL)
+    {
+        return -1;
+    }
+
+    va_list args;
+    va_start(args, input);
+
+    char *output = fmtin(input, &args);
+
+    va_end(args);
+
+    if (output == NULL)
+    {
+        return -1;
+    }
+
+    int result = fprintf(stream, "%s", output);
+
+    free(output);
+
+    return result;
+}
