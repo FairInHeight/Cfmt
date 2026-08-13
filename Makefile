@@ -31,7 +31,7 @@ build/%.o: src/%.c
 # Build the external test program using the static library.
 test: $(LIB)
 	@mkdir -p ../build
-	$(CC) $(CFLAGS) -Iinclude ../main.c $(LIB) -o $(TEST)
+	$(CC) $(CFLAGS) -Iinclude ../main.c ../commands.c  $(LIB) -o $(TEST)
 
 
 # Remove generated files.
