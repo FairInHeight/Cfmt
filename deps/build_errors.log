@@ -1,0 +1,6 @@
+src/cfmt.c:14:14: warning: 'style' defined but not used [-Wunused-variable]
+   14 | static Style style = Reset;
+      |              ^~~~~
+src/cfmt.c:14:14: warning: 'style' defined but not used [-Wunused-variable]
+   14 | static Style style = Reset;
+      |              ^~~~~
