@@ -86,6 +86,50 @@ char *fmtstr(const char *input)
             }
 
             // -------------------------
+            // BRIGHT COLORS
+            // -------------------------
+            else if (fspec == 'B')
+            {
+                if (!((fspec2 >= '0' && fspec2 <= '7') ||
+                      fspec2 == '9'))
+                {
+                    // Invalid foreground format.
+                    output[out_index++] = '&';
+                    output[out_index++] = fspec;
+
+                    clr_(parsing);
+                    continue;
+                }
+
+                color = decode_color(fspec2);
+                ansi = encode_color(color, 'B');
+                // Consume the color digit.
+                index++;
+            }
+
+            // -------------------------
+            // BRIGHT BACKGROUNDS
+            // -------------------------
+            else if (fspec == 'H')
+            {
+                if (!((fspec2 >= '0' && fspec2 <= '7') ||
+                      fspec2 == '9'))
+                {
+                    // Invalid background format.
+                    output[out_index++] = '&';
+                    output[out_index++] = fspec;
+
+                    clr_(parsing);
+                    continue;
+                }
+
+                color = decode_color(fspec2);
+                ansi = encode_color(color, 'H');
+                // Consume the color digit.
+                index++;
+            }
+
+            // -------------------------
             // BACKGROUND COLOR
             // -------------------------
             else if (fspec == 'h')

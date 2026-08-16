@@ -57,13 +57,12 @@ char recode_color(Color input) //inverse of decode.
 
 char *encode_color(Color color, char mode)
 {
-    if (mode != 'b' && mode != 'f')
-    {
-        printf("Invalid encode mode. Use 'b' for background or 'f' for foreground.\n");
-        return NULL;
-    }
+    size_t out_size = 6;
 
-    char *output = malloc(6);
+    if (mode == 'H')
+        out_size = 7;
+
+    char *output = malloc(out_size);
 
     if (output == NULL)
     {
@@ -72,13 +71,37 @@ char *encode_color(Color color, char mode)
 
     output[0] = '\033';
     output[1] = '[';
-    output[2] = (mode == 'b') ? '4' : '3';
+
+    if (mode == 'f')
+        output[2] = '3';
+    else if (mode == 'b')
+        output[2] = '4';
+    else if (mode == 'B')
+        output[2] = '9';
+    else if (mode == 'H')
+    {
+        output[2] = '1';
+        output[3] = '0';
+        output[4] = recode_color(color);
+        output[5] = 'm';
+        output[6] = '\0';
+
+        return output;
+    }
+    else
+    {
+        free(output);
+        printf("Invalid encode mode. Use 'b' for background or 'f' for foreground.\n");
+        return NULL;
+    }
+
     output[3] = recode_color(color);
     output[4] = 'm';
     output[5] = '\0';
 
     return output;
 }
+
 Color uncode_color(const char *input)
 {
     return decode_color(input[3]);
