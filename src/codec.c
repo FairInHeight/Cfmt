@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "codec.h"
 #include "color.h"
@@ -59,7 +60,7 @@ char *encode_color(Color color, char mode)
 {
     size_t out_size = 6;
 
-    if (mode == 'H')
+    if (mode == 'h')
         out_size = 7;
 
     char *output = malloc(out_size);
@@ -91,7 +92,6 @@ char *encode_color(Color color, char mode)
     else
     {
         free(output);
-        printf("Invalid encode mode. Use 'b' for background or 'f' for foreground.\n");
         return NULL;
     }
 
@@ -225,4 +225,52 @@ char *encode_style(Style style)
 Style uncode_style(const char *input)
 {
     return decode_style(input[2]);
+}
+
+
+
+
+
+
+
+char *encode_color256(Color color, char mode)
+{
+    char *buffer;
+    size_t buffer_size;
+
+    if (color > 99)
+    {
+        buffer_size = 4;
+    }
+    else if (color > 9)
+    {
+        buffer_size = 3;
+    }
+    else
+    {
+        buffer_size = 2;
+    }
+    
+    buffer = malloc(buffer_size);
+
+    snprintf(buffer, buffer_size, "%d", color);
+
+    size_t output_size = buffer_size + 9;
+    char *output = malloc(output_size);
+
+    output[0] = '\033';
+    output[1] = '[';
+    output[2] = mode == 'h' ? '4' : '3';
+    output[3] = '8';
+    output[4] = ';';
+    output[5] = '5';
+    output[6] = ';';
+    
+    memcpy(output + 7, buffer, buffer_size - 1);
+
+    output[7 + buffer_size - 1] = 'm';
+    output[7 + buffer_size] = '\0';
+
+    free(buffer);
+    return output;
 }

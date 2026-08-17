@@ -14,4 +14,6 @@ char recode_style(Style input);
 char *encode_style(Style style);
 Style uncode_style(const char *input);
 
+char *encode_color256(Color color, char mode);
+
 #endif

@@ -56,6 +56,11 @@ char *fmtstr(const char *input)
         {
             char fspec = input[index];
             char fspec2 = input[index + 1];
+            char fspec3 = input[index + 2];
+            char fspec4 = input[index + 3];
+            char fspec5 = input[index + 4];
+            char fspec6 = input[index + 5];
+            char fspec7 = input[index + 6];
 
             // Incomplete format at end of string.
             if (fspec == '\0')
@@ -83,6 +88,38 @@ char *fmtstr(const char *input)
             {
                 style = decode_style(fspec);
                 ansi = encode_style(style);
+            }
+
+            // -------------------------
+            // FOREGROUND COLOR
+            // -------------------------
+            else if ((fspec >= '0' && fspec <= '7') ||
+                     fspec == '9')
+            {
+                color = decode_color(fspec);
+                ansi = encode_color(color, 'f');
+            }
+
+            // -------------------------
+            // BACKGROUND COLOR
+            // -------------------------
+            else if (fspec == 'h')
+            {
+                if (!((fspec2 >= '0' && fspec2 <= '7') ||
+                      fspec2 == '9'))
+                {
+                    // Invalid background format.
+                    output[out_index++] = '&';
+                    output[out_index++] = fspec;
+
+                    clr_(parsing);
+                    continue;
+                }
+
+                color = decode_color(fspec2);
+                ansi = encode_color(color, 'b');
+                // Consume the color digit.
+                index++;
             }
 
             // -------------------------
@@ -124,18 +161,16 @@ char *fmtstr(const char *input)
                 }
 
                 color = decode_color(fspec2);
-                ansi = encode_color(color, 'H');
+                ansi = encode_color(color, 'h');
                 // Consume the color digit.
                 index++;
             }
 
-            // -------------------------
-            // BACKGROUND COLOR
-            // -------------------------
-            else if (fspec == 'h')
+            else if (fspec == 'c')
             {
-                if (!((fspec2 >= '0' && fspec2 <= '7') ||
-                      fspec2 == '9'))
+                if ((fspec2 < '0' || fspec2 > '5') ||
+                    (fspec3 < '0' || fspec3 > '5') ||
+                    (fspec4 < '0' || fspec3 > '5'))
                 {
                     // Invalid background format.
                     output[out_index++] = '&';
@@ -145,20 +180,13 @@ char *fmtstr(const char *input)
                     continue;
                 }
 
-                color = decode_color(fspec2);
-                ansi = encode_color(color, 'b');
-                // Consume the color digit.
-                index++;
-            }
-
-            // -------------------------
-            // FOREGROUND COLOR
-            // -------------------------
-            else if ((fspec >= '0' && fspec <= '7') ||
-                     fspec == '9')
-            {
-                color = decode_color(fspec);
-                ansi = encode_color(color, 'f');
+                color = 16
+                        + (36 * (fspec2 - '0'))
+                        + (6  * (fspec3 - '0'))
+                        + (fspec4 - '0');
+                        
+                ansi = encode_color256(color, 'f');
+                index += 3;
             }
 
             // -------------------------
