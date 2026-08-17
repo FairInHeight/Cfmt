@@ -170,6 +170,7 @@ char *fmtstr(const char *input)
                 output[out_index++] = fspec;
 
                 clr_(parsing);
+                continue;
             }
 
             // Encoding failed.
