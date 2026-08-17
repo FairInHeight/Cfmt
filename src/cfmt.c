@@ -180,12 +180,14 @@ char *fmtstr(const char *input)
                     continue;
                 }
 
+                //ansi formula for decoding 6x6x6 color cube into a byte value.
                 color = 16
                         + (36 * (fspec2 - '0'))
                         + (6  * (fspec3 - '0'))
                         + (fspec4 - '0');
-                        
+
                 ansi = encode_color256(color, 'f');
+                //consume all formatting digits
                 index += 3;
             }
 
