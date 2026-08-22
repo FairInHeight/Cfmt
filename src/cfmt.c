@@ -23,11 +23,6 @@ char *fmtstr(const char *input)
     size_t output_size = strlen(input) + 1;
     char *output = malloc(output_size);
 
-    if (input == NULL)
-    {
-        return NULL;
-    }
-
     if (output == NULL)
     {
         return NULL;
@@ -170,7 +165,7 @@ char *fmtstr(const char *input)
             {
                 if ((fspec2 < '0' || fspec2 > '5') ||
                     (fspec3 < '0' || fspec3 > '5') ||
-                    (fspec4 < '0' || fspec3 > '5'))
+                    (fspec4 < '0' || fspec4 > '5'))
                 {
                     // Invalid background format.
                     output[out_index++] = '&';

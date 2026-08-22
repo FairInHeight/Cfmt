@@ -1,6 +1,10 @@
 #ifndef CFMT_H
 #define CFMT_H
 
+#include <stdarg.h>
+#include <stddef.h>
+#include <stdio.h>
+
 char *fmtstr(const char *input);
 char *fmtspec(char spec, va_list *args);
 
