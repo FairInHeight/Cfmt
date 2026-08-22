@@ -25,9 +25,7 @@ char *fmtstr(const char *input)
     char *output = malloc(output_size);
 
     if (output == NULL)
-    {
         return NULL;
-    }
 
     size_t out_index = 0;
 
@@ -51,9 +49,6 @@ char *fmtstr(const char *input)
         if (is_(parsing))
         {
             char fspec = input[index];
-            char fspec2 = input[index + 1];
-            char fspec3 = input[index + 2];
-            char fspec4 = input[index + 3];
             //char fspec5 = input[index + 4];
             //char fspec6 = input[index + 5];
             //char fspec7 = input[index + 6];
@@ -101,6 +96,8 @@ char *fmtstr(const char *input)
             // -------------------------
             else if (fspec == 'h')
             {
+                char fspec2 = input[index + 1];
+
                 if (!((fspec2 >= '0' && fspec2 <= '7') ||
                       fspec2 == '9'))
                 {
@@ -123,6 +120,8 @@ char *fmtstr(const char *input)
             // -------------------------
             else if (fspec == 'B')
             {
+                char fspec2 = input[index + 1];
+
                 if (!((fspec2 >= '0' && fspec2 <= '7') ||
                       fspec2 == '9'))
                 {
@@ -145,6 +144,8 @@ char *fmtstr(const char *input)
             // -------------------------
             else if (fspec == 'H')
             {
+                char fspec2 = input[index + 1];
+
                 if (!((fspec2 >= '0' && fspec2 <= '7') ||
                       fspec2 == '9'))
                 {
@@ -164,6 +165,10 @@ char *fmtstr(const char *input)
 
             else if (fspec == 'c')
             {
+                char fspec2 = input[index + 1];
+                char fspec3 = input[index + 2];
+                char fspec4 = input[index + 3];
+
                 if ((fspec2 < '0' || fspec2 > '5') ||
                     (fspec3 < '0' || fspec3 > '5') ||
                     (fspec4 < '0' || fspec4 > '5'))
