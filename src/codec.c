@@ -66,9 +66,7 @@ char *encode_color(Color color, char mode)
     char *output = malloc(out_size);
 
     if (output == NULL)
-    {
         return NULL;
-    }
 
     output[0] = '\033';
     output[1] = '[';
@@ -102,10 +100,8 @@ char *encode_color(Color color, char mode)
     return output;
 }
 
-Color uncode_color(const char *input)
-{
-    return decode_color(input[3]);
-}
+Color uncode_color(const char *input) {
+    return decode_color(input[3]); }
 
 
 
@@ -173,9 +169,7 @@ char *encode_style(Style style)
     char *output = malloc(6);
 
     if (output == NULL)
-    {
         return NULL;
-    }
 
     char code;
 
@@ -239,24 +233,27 @@ char *encode_color256(Color color, char mode)
     size_t buffer_size;
 
     if (color > 99)
-    {
         buffer_size = 4;
-    }
     else if (color > 9)
-    {
         buffer_size = 3;
-    }
     else
-    {
         buffer_size = 2;
-    }
     
     buffer = malloc(buffer_size);
+
+    if (buffer == NULL)
+        return NULL;
 
     snprintf(buffer, buffer_size, "%d", color);
 
     size_t output_size = buffer_size + 9;
     char *output = malloc(output_size);
+
+    if (output == NULL)
+    {
+        free(buffer);
+        return NULL;
+    }
 
     output[0] = '\033';
     output[1] = '[';

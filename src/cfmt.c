@@ -1,5 +1,6 @@
 #include <stdarg.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -53,9 +54,9 @@ char *fmtstr(const char *input)
             char fspec2 = input[index + 1];
             char fspec3 = input[index + 2];
             char fspec4 = input[index + 3];
-            char fspec5 = input[index + 4];
-            char fspec6 = input[index + 5];
-            char fspec7 = input[index + 6];
+            //char fspec5 = input[index + 4];
+            //char fspec6 = input[index + 5];
+            //char fspec7 = input[index + 6];
 
             // Incomplete format at end of string.
             if (fspec == '\0')
@@ -207,6 +208,13 @@ char *fmtstr(const char *input)
 
             size_t ansi_size = strlen(ansi);
 
+            if (ansi_size > SIZE_MAX - output_size)
+            {
+                free(ansi);
+                free(output);
+                return NULL;
+            }
+
             char *new_output =
                 realloc(output, output_size + ansi_size);
 
@@ -276,9 +284,7 @@ char *fmtstr(const char *input)
 char *fmtspec(char spec, va_list *args)
 {
     if (args == NULL)
-    {
         return NULL;
-    }
 
     // %s
     if (spec == 's')
@@ -286,9 +292,7 @@ char *fmtspec(char spec, va_list *args)
         char *string = va_arg(*args, char *);
 
         if (string == NULL)
-        {
             string = "(null)";
-        }
 
         // CHANGED:
         // Copy the raw string here. Do not call fmtstr().
@@ -299,9 +303,7 @@ char *fmtspec(char spec, va_list *args)
         char *output = malloc(size);
 
         if (output == NULL)
-        {
             return NULL;
-        }
 
         memcpy(output, string, size);
 
@@ -316,9 +318,7 @@ char *fmtspec(char spec, va_list *args)
         char *output = malloc(2);
 
         if (output == NULL)
-        {
             return NULL;
-        }
 
         output[0] = (char)character;
         output[1] = '\0';
@@ -334,16 +334,12 @@ char *fmtspec(char spec, va_list *args)
         int size = snprintf(NULL, 0, "%i", number);
 
         if (size < 0)
-        {
             return NULL;
-        }
 
         char *output = malloc((size_t)size + 1);
 
         if (output == NULL)
-        {
             return NULL;
-        }
 
         snprintf(output, (size_t)size + 1, "%i", number);
 
@@ -358,16 +354,12 @@ char *fmtspec(char spec, va_list *args)
         int size = snprintf(NULL, 0, "%f", number);
 
         if (size < 0)
-        {
             return NULL;
-        }
 
         char *output = malloc((size_t)size + 1);
 
         if (output == NULL)
-        {
             return NULL;
-        }
 
         snprintf(output, (size_t)size + 1, "%f", number);
 
@@ -386,12 +378,10 @@ static int append_string(
     const char *string)
 {
     if (output == NULL ||
-        output_size == NULL ||
-        out_index == NULL ||
-        string == NULL)
-    {
+    output_size == NULL ||
+    out_index == NULL ||
+    string == NULL)
         return -1;
-    }
 
     size_t string_size = strlen(string);
 
@@ -399,9 +389,7 @@ static int append_string(
         realloc(*output, *output_size + string_size);
 
     if (new_output == NULL)
-    {
         return -1;
-    }
 
     *output = new_output;
 
@@ -418,18 +406,14 @@ static int append_string(
 char *fmtin(const char *input, va_list *args)
 {
     if (input == NULL || args == NULL)
-    {
         return NULL;
-    }
 
     // Start with enough space for the input string.
     size_t output_size = strlen(input) + 1;
     char *output = malloc(output_size);
 
     if (output == NULL)
-    {
         return NULL;
-    }
 
     size_t out_index = 0;
 
@@ -488,9 +472,7 @@ char *fmtin(const char *input, va_list *args)
 int printfx(const char *input, ...)
 {
     if (input == NULL)
-    {
         return -1;
-    }
 
     va_list args;
     va_start(args, input);
@@ -516,9 +498,7 @@ int printfx(const char *input, ...)
 int snprintfx(char *str, size_t size, const char *input, ...)
 {
     if (str == NULL || input == NULL)
-    {
         return -1;
-    }
 
     va_list args;
     va_start(args, input);
@@ -544,9 +524,7 @@ int snprintfx(char *str, size_t size, const char *input, ...)
 int fprintfx(FILE *stream, const char *input, ...)
 {
     if (stream == NULL || input == NULL)
-    {
         return -1;
-    }
 
     va_list args;
     va_start(args, input);
@@ -556,9 +534,7 @@ int fprintfx(FILE *stream, const char *input, ...)
     va_end(args);
 
     if (output == NULL)
-    {
         return -1;
-    }
 
     int result = fprintf(stream, "%s", output);
 
