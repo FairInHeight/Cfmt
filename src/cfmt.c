@@ -100,14 +100,7 @@ char *fmtstr(const char *input)
 
                 if (!((fspec2 >= '0' && fspec2 <= '7') ||
                       fspec2 == '9'))
-                {
-                    // Invalid background format.
-                    output[out_index++] = '&';
-                    output[out_index++] = fspec;
-
-                    clr_(parsing);
-                    continue;
-                }
+                        goto invalid;
 
                 color = decode_color(fspec2);
                 ansi = encode_color(color, 'b');
@@ -124,14 +117,7 @@ char *fmtstr(const char *input)
 
                 if (!((fspec2 >= '0' && fspec2 <= '7') ||
                       fspec2 == '9'))
-                {
-                    // Invalid foreground format.
-                    output[out_index++] = '&';
-                    output[out_index++] = fspec;
-
-                    clr_(parsing);
-                    continue;
-                }
+                        goto invalid;
 
                 color = decode_color(fspec2);
                 ansi = encode_color(color, 'B');
@@ -148,14 +134,7 @@ char *fmtstr(const char *input)
 
                 if (!((fspec2 >= '0' && fspec2 <= '7') ||
                       fspec2 == '9'))
-                {
-                    // Invalid background format.
-                    output[out_index++] = '&';
-                    output[out_index++] = fspec;
-
-                    clr_(parsing);
-                    continue;
-                }
+                        goto invalid;
 
                 color = decode_color(fspec2);
                 ansi = encode_color(color, 'h');
@@ -163,23 +142,25 @@ char *fmtstr(const char *input)
                 index++;
             }
 
+            // -------------------------
+            // RGB COLOR CUBE
+            // -------------------------
             else if (fspec == 'c')
             {
                 char fspec2 = input[index + 1];
+                if (fspec2 == '\0' || fspec2 == '\n')
+                    goto invalid;
+
                 char fspec3 = input[index + 2];
+                if (fspec3 == '\0' || fspec3 == '\n')
+                    goto invalid;
+
                 char fspec4 = input[index + 3];
 
                 if ((fspec2 < '0' || fspec2 > '5') ||
                     (fspec3 < '0' || fspec3 > '5') ||
                     (fspec4 < '0' || fspec4 > '5'))
-                {
-                    // Invalid background format.
-                    output[out_index++] = '&';
-                    output[out_index++] = fspec;
-
-                    clr_(parsing);
-                    continue;
-                }
+                        goto invalid;
 
                 //ansi formula for decoding 6x6x6 color cube into a byte value.
                 color = 16
@@ -197,11 +178,12 @@ char *fmtstr(const char *input)
             // -------------------------
             else
             {
-                output[out_index++] = '&';
-                output[out_index++] = fspec;
+                invalid:
+                    output[out_index++] = '&';
+                    output[out_index++] = fspec;
 
-                clr_(parsing);
-                continue;
+                    clr_(parsing);
+                    continue;
             }
 
             // Encoding failed.
