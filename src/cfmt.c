@@ -45,7 +45,6 @@ char *fmtstr(const char *input)
         }
 
         // Handle the character following \&.
-        // Handle the character following \&.
         if (is_(parsing))
         {
             char fspec = input[index];
@@ -235,6 +234,12 @@ char *fmtstr(const char *input)
             const char reset[] = "\033[0m";
             size_t reset_size = sizeof(reset) - 1;
 
+            if (reset_size > SIZE_MAX - output_size)
+            {
+                free(output);
+                return NULL;
+            }
+
             // Expand the output buffer for the ANSI reset sequence.
             char *new_output =
                 realloc(output, output_size + reset_size);
@@ -371,6 +376,9 @@ static int append_string(
         return -1;
 
     size_t string_size = strlen(string);
+
+    if (string_size > SIZE_MAX - *output_size)
+        return -1;
 
     char *new_output =
         realloc(*output, *output_size + string_size);
