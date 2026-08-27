@@ -64,15 +64,11 @@ char *fmtstr(const char *input)
             switch (type)
             {
                 case DISPATCH_STYLE:
-                    
-                    style = decode_style(fspec);
-                    ansi = encode_style(style);
+                    ansi = dispatch_style(fspec);
                     break;
 
                 case DISPATCH_FOREGROUND:
-
-                    color = decode_color(fspec);
-                    ansi = encode_color(color, 'f');
+                    ansi = dispatch_foreground(fspec);
                     break;
 
                 case DISPATCH_BACKGROUND:

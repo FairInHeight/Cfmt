@@ -62,3 +62,10 @@ char *dispatch_style(char spec)
 
     return encode_style(style);
 }
+
+char *dispatch_foreground(char spec)
+{
+    color = decode_color(spec);
+
+    return encode_color(color, 'f');
+}

@@ -13,6 +13,8 @@ typedef enum
 } DispatchType;
 
 DispatchType dispatch(char spec);
+
 char *dispatch_style(char spec);
+char *dispatch_foreground(char spec);
 
 #endif
