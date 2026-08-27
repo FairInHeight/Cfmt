@@ -2,77 +2,106 @@
 #include "codec.h"
 #include "style.h"
 
-static const DispatchType dispatch_table[256] =
+static char *dispatch_style_handler(DispatchContext *ctx)
 {
-    /*
-     * Styles
-     */
-    ['b'] = DISPATCH_STYLE,              // Bold
-    ['d'] = DISPATCH_STYLE,              // Dim
-    ['i'] = DISPATCH_STYLE,              // Italic
-    ['u'] = DISPATCH_STYLE,              // Underline
-    ['k'] = DISPATCH_STYLE,              // Blink
-    ['v'] = DISPATCH_STYLE,              // Inverse
-    ['n'] = DISPATCH_STYLE,              // Hidden
-    ['t'] = DISPATCH_STYLE,              // Strikethrough
-    ['r'] = DISPATCH_STYLE,              // Reset
+    return dispatch_style(ctx);
+}
 
-    /*
-     * Standard foreground colors
-     */
-    ['0'] = DISPATCH_FOREGROUND,
-    ['1'] = DISPATCH_FOREGROUND,
-    ['2'] = DISPATCH_FOREGROUND,
-    ['3'] = DISPATCH_FOREGROUND,
-    ['4'] = DISPATCH_FOREGROUND,
-    ['5'] = DISPATCH_FOREGROUND,
-    ['6'] = DISPATCH_FOREGROUND,
-    ['7'] = DISPATCH_FOREGROUND,
-    ['9'] = DISPATCH_FOREGROUND,
+static char *dispatch_foreground_handler(DispatchContext *ctx)
+{
+    return dispatch_foreground(ctx);
+}
 
-    /*
-     * Standard background colors
-     */
-    ['h'] = DISPATCH_BACKGROUND,
+static char *dispatch_background_handler(DispatchContext *ctx)
+{
+    return dispatch_background(ctx);
+}
 
-    /*
-     * Bright foreground colors
-     */
-    ['*'] = DISPATCH_BRIGHT_FOREGROUND,
+static char *dispatch_bright_foreground_handler(DispatchContext *ctx)
+{
+    return dispatch_bright_foreground(ctx);
+}
 
-    /*
-     * Bright background colors
-     */
-    ['H'] = DISPATCH_BRIGHT_BACKGROUND,
+static char *dispatch_bright_background_handler(DispatchContext *ctx)
+{
+    return dispatch_bright_background(ctx);
+}
 
-    /*
-     * RGB color
-     */
-    ['c'] = DISPATCH_RGB
+static char *dispatch_rgb_handler(DispatchContext *ctx)
+{
+    return dispatch_rgb(ctx);
+}
+
+static DispatchHandler dispatch_table[256] =
+{
+    /* Styles */
+    ['b'] = dispatch_style_handler,
+    ['d'] = dispatch_style_handler,
+    ['i'] = dispatch_style_handler,
+    ['u'] = dispatch_style_handler,
+    ['k'] = dispatch_style_handler,
+    ['v'] = dispatch_style_handler,
+    ['n'] = dispatch_style_handler,
+    ['t'] = dispatch_style_handler,
+    ['r'] = dispatch_style_handler,
+
+    /* Standard foreground colors */
+    ['0'] = dispatch_foreground_handler,
+    ['1'] = dispatch_foreground_handler,
+    ['2'] = dispatch_foreground_handler,
+    ['3'] = dispatch_foreground_handler,
+    ['4'] = dispatch_foreground_handler,
+    ['5'] = dispatch_foreground_handler,
+    ['6'] = dispatch_foreground_handler,
+    ['7'] = dispatch_foreground_handler,
+    ['9'] = dispatch_foreground_handler,
+
+    /* Standard background colors */
+    ['h'] = dispatch_background_handler,
+
+    /* Bright foreground colors */
+    ['*'] = dispatch_bright_foreground_handler,
+
+    /* Bright background colors */
+    ['H'] = dispatch_bright_background_handler,
+
+    /* RGB color */
+    ['c'] = dispatch_rgb_handler
 };
 
-DispatchType dispatch(char spec)
+DispatchHandler dispatch(char spec)
 {
     return dispatch_table[(unsigned char)spec];
 }
 
-char *dispatch_style(char spec)
+char *dispatch_style(DispatchContext *ctx)
 {
-    style = decode_style(spec);
+    if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
+        return NULL;
+
+    style = decode_style(ctx->input[*ctx->index]);
 
     return encode_style(style);
 }
 
-char *dispatch_foreground(char spec)
+char *dispatch_foreground(DispatchContext *ctx)
 {
-    color = decode_color(spec);
+    if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
+        return NULL;
+
+    color = decode_color(ctx->input[*ctx->index]);
 
     return encode_color(color, 'f');
 }
 
 char *dispatch_background(DispatchContext *ctx)
 {
-    char spec = ctx->input[*ctx->index + 1];
+    char spec;
+
+    if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
+        return NULL;
+
+    spec = ctx->input[*ctx->index + 1];
 
     if (!((spec >= '0' && spec <= '7') || spec == '9'))
         return NULL;
@@ -86,7 +115,12 @@ char *dispatch_background(DispatchContext *ctx)
 
 char *dispatch_bright_foreground(DispatchContext *ctx)
 {
-    char spec = ctx->input[*ctx->index + 1];
+    char spec;
+
+    if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
+        return NULL;
+
+    spec = ctx->input[*ctx->index + 1];
 
     if (!((spec >= '0' && spec <= '7') || spec == '9'))
         return NULL;
@@ -100,7 +134,12 @@ char *dispatch_bright_foreground(DispatchContext *ctx)
 
 char *dispatch_bright_background(DispatchContext *ctx)
 {
-    char spec = ctx->input[*ctx->index + 1];
+    char spec;
+
+    if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
+        return NULL;
+
+    spec = ctx->input[*ctx->index + 1];
 
     if (!((spec >= '0' && spec <= '7') || spec == '9'))
         return NULL;
@@ -114,9 +153,16 @@ char *dispatch_bright_background(DispatchContext *ctx)
 
 char *dispatch_rgb(DispatchContext *ctx)
 {
-    char r = ctx->input[*ctx->index + 1];
-    char g = ctx->input[*ctx->index + 2];
-    char b = ctx->input[*ctx->index + 3];
+    char r;
+    char g;
+    char b;
+
+    if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
+        return NULL;
+
+    r = ctx->input[*ctx->index + 1];
+    g = ctx->input[*ctx->index + 2];
+    b = ctx->input[*ctx->index + 3];
 
     if (r == '\0' || r == '\n' ||
         g == '\0' || g == '\n' ||
