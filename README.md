@@ -22,10 +22,11 @@ cfmt formatting begins with `\&`.
 
 ### Styles
 
-
+| Cfmt Code | Style | Ansi Sequence |
+| :---: | :---: | :---: |
+| \&b | Bold | `ESC[1m` |
+| \&d | Dim | `ESC[2m` |
 ```text
-\&b Bold
-\&d Dim
 \&i Italic
 \&u Underline
 \&k Blinking
