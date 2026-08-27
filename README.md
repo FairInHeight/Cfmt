@@ -23,8 +23,7 @@ cfmt formatting begins with `\&`.
 ### Styles
 
 
-$
-\begin{array}{|l|l|}
+$\begin{array}{|l|l|}
 \hline
 \text{\textbf{Format Code}} & \text{\textbf{Example}} \\
 \hline
@@ -38,8 +37,7 @@ $
 \text{t} & \text{Strikethrough} \\
 \text{r} & \text{Reset} \\
 \hline
-\end{array}
-$
+\end{array}$
 
 
 ### Foreground Colors
