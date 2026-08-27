@@ -76,7 +76,7 @@ char *fmtstr(const char *input)
                     break;
 
                 case DISPATCH_BACKGROUND:
-                    
+                {
                     char fspec2 = input[index + 1];
 
                     if (!((fspec2 >= '0' && fspec2 <= '7') ||
@@ -89,9 +89,10 @@ char *fmtstr(const char *input)
                     index++;
                     
                     break;
+                }
 
                 case DISPATCH_BRIGHT_FOREGROUND:
-                    
+                {    
                     char fspec2 = input[index + 1];
 
                     if (!((fspec2 >= '0' && fspec2 <= '7') ||
@@ -104,9 +105,10 @@ char *fmtstr(const char *input)
                     index++;
                     
                     break;
+                }
 
                 case DISPATCH_BRIGHT_BACKGROUND:
-                    
+                {
                     char fspec2 = input[index + 1];
 
                     if (!((fspec2 >= '0' && fspec2 <= '7') ||
@@ -119,9 +121,10 @@ char *fmtstr(const char *input)
                     index++;
                     
                     break;
+                }
 
                 case DISPATCH_RGB:
-                    
+                {
                     char fspec2 = input[index + 1];
                     if (fspec2 == '\0' || fspec2 == '\n')
                         goto invalid;
@@ -147,6 +150,7 @@ char *fmtstr(const char *input)
                     // Consume all formatting digits.
                     index += 3;
                     break;
+                }
 
                 case DISPATCH_INVALID:
                     
