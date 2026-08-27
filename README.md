@@ -55,7 +55,7 @@ Use `*` for bright colors.
 Prefix the color with `h` for standard colors,
 or `H` for a bright colors.
 
-| Color | Highlight/BG Code | Ansi Sequence | Bright Highlight | Ansi Sequence |
+| Color | Highlight/BG Code | Ansi Sequence | Bright BG/Highlight | Ansi Sequence |
 | :---: | :---: | :---: | :---: | :---: |
 | Black | \\&h0 | `ESC[40m` | \\&H0 | `ESC[100m` |
 | Red | \\&h1 | `ESC[41m` | \\&H1 | `ESC[101m` |
@@ -65,7 +65,7 @@ or `H` for a bright colors.
 | Magenta | \\&h5 | `ESC[35m` | \\&H5 | `ESC[105m` |
 | Cyan | \\&h6 | `ESC[36m` | \\&H6 | `ESC[106m` |
 | White | \\&h7 | `ESC[37m` | \\&H7 | `ESC[107m` |
-| Color Reset | \\&h9 | `ESC[39m` | \\&H9 | `ESC[109m` |
+| BG/Highlight Reset | \\&h9 | `ESC[39m` | \\&H9 | `ESC[109m` |
 
 ### RGB Color Cube
 
