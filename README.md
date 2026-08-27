@@ -22,7 +22,7 @@ cfmt formatting begins with `\&`.
 
 ### Styles
 
-<code>
+
 \b  $${\\mathbf{Bold}}$$
 \d  Dim
 \i  $${\\mathit{Italic}}$$
@@ -32,7 +32,6 @@ cfmt formatting begins with `\&`.
 \n  Hidden
 \t  ~~Strikethrough~~
 \r  Reset
-</code>
 
 ### Foreground Colors
 
