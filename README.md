@@ -18,7 +18,7 @@ cfmt adds a compact formatting syntax to C strings and provides `printf`-style w
 
 ## Formatting Syntax
 
-cfmt formatting begins with `\&`.
+Cfmt formatting begins with `\&`. You must use literal backslash `\\` in strings when writing code. Single \'s in the terminal work fine, but due to how strings work in C with escape sequences, me must use literal backslash in strings to prefix our `&`.
 
 ### Styles
 
