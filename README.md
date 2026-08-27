@@ -150,10 +150,9 @@ This produces:
 build/cfmt.a
 ```  
 
-The Makefile includes a command for building the library against a testing environment.  
-This will look a directory above Cfmt for a main.c and a commands.c to compile with the library.  
-You may use this feature with your own custom main.c and commands.c by creating a testing folder and dropping in the Cfmt directory.
-To build the project's test program:
+The Makefile includes a command for building the library against a testing environment. This will look a directory above Cfmt for a main.c and a commands.c to compile with the library.  
+You may use this feature with your own custom main.c and commands.c by creating a testing folder and dropping in the Cfmt directory.  
+To build the project's test program:  
 
 ```bash
 make test
