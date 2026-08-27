@@ -50,7 +50,7 @@ Use `*` for bright colors.
 | White | \\&7 | `ESC[37m` | \\&*7 | `ESC[97m` |
 | Color Reset | \\&9 | `ESC[39m` | \\&*9 | `ESC[99m` |
 
-### Background Colors
+### Background/Highlight Colors
 
 Prefix the color with `h` for standard colors,
 or `H` for a bright colors.
