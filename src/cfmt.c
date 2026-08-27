@@ -93,15 +93,16 @@ char *fmtstr(const char *input)
                     break;
 
                 case DISPATCH_INVALID:
-                    goto invalid;
+                    break;
             }
 
-
-            // Encoding failed.
+            // Invalid formatting is emitted literally.
             if (ansi == NULL)
             {
-                free(output);
-                return NULL;
+                output[out_index++] = '&';
+                output[out_index++] = fspec;
+                clr_(parsing);
+                continue;
             }
 
             size_t ansi_size = strlen(ansi);
