@@ -16,5 +16,9 @@ DispatchType dispatch(char spec);
 
 char *dispatch_style(char spec);
 char *dispatch_foreground(char spec);
+char *dispatch_background(char spec);
+char *dispatch_bright_foreground(char spec);
+char *dispatch_bright_background(char spec);
+char *dispatch_rgb(char spec);
 
 #endif
