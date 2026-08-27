@@ -38,17 +38,17 @@ cfmt formatting begins with `\&`.
 
 Use `*` for bright colors.
 
-| Color | Color Code | Ansi Sequence | Bright Color Code | Ansi Sequence |
-| :---: | :---: | :---: | :---: | :---: |
-| $\textcolor{black}{\text{Black}}$ | \\&0 | `ESC[30m` | \\&*0 | `ESC[90m` |
-| $\textcolor{red}{\text{Red}}$ | \\&1 | `ESC[31m` | \\&*1 | `ESC[91m` |
-| $\textcolor{green}{\text{Green}}$ | \\&2 | `ESC[32m` | \\&*2 | `ESC[92m` |
-| $\textcolor{yellow}{\text{Yellow}}$ | \\&3 | `ESC[33m` | \\&*3 | `ESC[93m` |
-| $\textcolor{blue}{\text{Blue}}$ | \\&4 | `ESC[34m` | \\&*4 | `ESC[94m` |
-| $\textcolor{magenta}{\text{Magenta}}$ | \\&5 | `ESC[35m` | \\&*5 | `ESC[95m` |
-| $\textcolor{cyan}{\text{Cyan}}$ | \\&6 | `ESC[36m` | \\&*6 | `ESC[96m` |
-| White | \\&7 | `ESC[37m` | \\&*7 | `ESC[97m` |
-| Color Reset | \\&9 | `ESC[39m` | \\&*9 | `ESC[99m` |
+| Color | Color Code | Ansi Sequence | Bright Color | Bright Color Code | Ansi Sequence |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| $\textcolor{black}{\text{Black}}$ | \\&0 | `ESC[30m` | \textcolor{#7F7F7F}{\text{Bright Black}} | \\&*0 | `ESC[90m` |
+| $\textcolor{red}{\text{Red}}$ | \\&1 | `ESC[31m` | \textcolor{#FF5555}{\text{Bright Red}} | \\&*1 | `ESC[91m` |
+| $\textcolor{green}{\text{Green}}$ | \\&2 | `ESC[32m` | \textcolor{#55FF55}{\text{Bright Green}} | \\&*2 | `ESC[92m` |
+| $\textcolor{yellow}{\text{Yellow}}$ | \\&3 | `ESC[33m` | \textcolor{#FFFF55}{\text{Bright Yellow}} | \\&*3 | `ESC[93m` |
+| $\textcolor{blue}{\text{Blue}}$ | \\&4 | `ESC[34m` | \textcolor{#5555FF}{\text{Bright Blue}} | \\&*4 | `ESC[94m` |
+| $\textcolor{magenta}{\text{Magenta}}$ | \\&5 | `ESC[35m` | \textcolor{#FF55FF}{\text{Bright Magenta}} | \\&*5 | `ESC[95m` |
+| $\textcolor{cyan}{\text{Cyan}}$ | \\&6 | `ESC[36m` | \\&*6 | \textcolor{#55FFFF}{\text{Bright Cyan}} | `ESC[96m` |
+| White | \\&7 | `ESC[37m` | \textcolor{#FFFFFF}{\text{Bright White}} | \\&*7 | `ESC[97m` |
+| Color Reset | \\&9 | `ESC[39m` | N / A | \\&*9 | `ESC[99m` |
 
 ### Background/Highlight Colors
 
