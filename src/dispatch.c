@@ -69,3 +69,31 @@ char *dispatch_foreground(char spec)
 
     return encode_color(color, 'f');
 }
+
+char *dispatch_background(char spec)
+{
+    color = decode_color(spec);
+
+    return encode_color(color, 'b');
+}
+
+char *dispatch_bright_foreground(char spec)
+{
+    color = decode_color(spec);
+
+    return encode_color(color, 'B');
+}
+
+char *dispatch_bright_background(char spec)
+{
+    color = decode_color(spec);
+
+    return encode_color(color, 'H');
+}
+
+char *dispatch_rgb(char spec)
+{
+    (void)spec;
+
+    return NULL;
+}
