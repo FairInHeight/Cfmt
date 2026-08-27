@@ -43,9 +43,9 @@ Use `*` for bright colors.
 | $\textcolor{black}{\text{Black}}$ | \\&0 | `ESC[30m` | \\&*0 | `ESC[90m` |
 | $\textcolor{red}{\text{Red}}$ | \\&1 | `ESC[31m` | \\&*1 | `ESC[91m` |
 | $\textcolor{green}{\text{Green}}$ | \\&2 | `ESC[32m` | \\&*2 | `ESC[92m` |
-| Yellow | \\&3 | `ESC[33m` | \\&*3 | `ESC[93m` |
-| Blue | \\&4 | `ESC[34m` | \\&*4 | `ESC[94m` |
-| Magenta | \\&5 | `ESC[35m` | \\&*5 | `ESC[95m` |
+| $\textcolor{yellow}{\text{Yellow}}$ | \\&3 | `ESC[33m` | \\&*3 | `ESC[93m` |
+| $\textcolor{blue}{\text{Blue}}$ | \\&4 | `ESC[34m` | \\&*4 | `ESC[94m` |
+| $\textcolor{magenta}{\text{Magenta}}$ | \\&5 | `ESC[35m` | \\&*5 | `ESC[95m` |
 | Cyan | \\&6 | `ESC[36m` | \\&*6 | `ESC[96m` |
 | White | \\&7 | `ESC[37m` | \\&*7 | `ESC[97m` |
 | Color Reset | \\&9 | `ESC[39m` | \\&*9 | `ESC[99m` |
