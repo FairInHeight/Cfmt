@@ -20,17 +20,21 @@ cfmt adds a compact formatting syntax to C strings and provides `printf`-style w
 
 cfmt formatting begins with `\&`.
 
-| Format Code | Example |
-| :--- | :--- |
-| \&b | **Bold** |
-| \&d | Dim |
-| \&i | *Italic* |
-| \&u | <u>Underline</u> |
-| \&k | Blinking |
-| \&v | Inverted |
-| \&n | Hidden |
-| \&t | ~~Strikethrough~~ |
-| \&r | `Reset` |
+<div style="display: flex; flex-direction: column; gap: 8px; border: 1px solid #30363d; border-radius: 6px; padding: 16px; background-color: #0d1117;">
+  <div style="display: flex; justify-content: space-between;">
+    <span><b>Format Code</b></span>
+    <span><b>Example</b></span>
+  </div>
+  <hr style="border-color: #30363d; margin: 4px 0;">
+  <div style="display: flex; justify-content: space-between;">
+    <span>&amp;b</span>
+    <span><b>Bold</b></span>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+    <span>&amp;u</span>
+    <span><u>Underline</u></span>
+  </div>
+</div>
 
 ### Styles
 
