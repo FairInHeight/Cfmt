@@ -91,7 +91,7 @@ The RGB cube is encoded into the ANSI 256-color range using:
 
 ## Print Wrappers
 
-Cfmt wraps various standard library functions with its' own functions to give the user a set of functions that behave just like the standard library counterparts, but replace our custom escape codes with ANSI sequences in the return. This is very seamless as any function you would normally use can just be followed with x to incorporate Cfmt formatting/translation.
+Cfmt wraps various standard library functions with its' own functions to give the user a set of functions that behave just like the standard library counterparts, but replace our custom escape codes with ANSI sequences in the return. This is very seamless as any function you would normally use can just be followed with x to incorporate Cfmt formatting/translation. All functions behave identically to their standard library counterparts other than library exclusive escape sequences. This includes variadic arguments and % identifiers where applicable.
 
 ```c
 printfx("Hello, %s!\n", name);
