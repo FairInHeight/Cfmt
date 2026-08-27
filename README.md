@@ -26,7 +26,7 @@ cfmt formatting begins with `\&`.
 * **&b** — **Bold**
 * **&d** — Dim
 * **&i** — *Italic*
-* **&u** — <u>Underline</u>
+* **&u** — $\underline{\text{Underline}}$
 * **&k** — Blinking
 * **&v** — Inverted
 * **&n** — Hidden
