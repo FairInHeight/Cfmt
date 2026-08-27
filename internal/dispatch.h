@@ -9,15 +9,28 @@ typedef struct
     size_t *index;
 } DispatchContext;
 
-typedef char *(*DispatchHandler)(DispatchContext *ctx);
+typedef enum
+{
+    DISPATCH_OK,
+    DISPATCH_INVALID,
+    DISPATCH_ERROR
+} DispatchStatus;
+
+typedef struct
+{
+    char *ansi;
+    DispatchStatus status;
+} DispatchResult;
+
+typedef DispatchResult (*DispatchHandler)(DispatchContext *ctx);
 
 DispatchHandler dispatch(char spec);
 
-char *dispatch_style(DispatchContext *ctx);
-char *dispatch_foreground(DispatchContext *ctx);
-char *dispatch_background(DispatchContext *ctx);
-char *dispatch_bright_foreground(DispatchContext *ctx);
-char *dispatch_bright_background(DispatchContext *ctx);
-char *dispatch_rgb(DispatchContext *ctx);
+DispatchResult dispatch_style(DispatchContext *ctx);
+DispatchResult dispatch_foreground(DispatchContext *ctx);
+DispatchResult dispatch_background(DispatchContext *ctx);
+DispatchResult dispatch_bright_foreground(DispatchContext *ctx);
+DispatchResult dispatch_bright_background(DispatchContext *ctx);
+DispatchResult dispatch_rgb(DispatchContext *ctx);
 
 #endif
