@@ -91,9 +91,12 @@ char *dispatch_bright_background(char spec)
     return encode_color(color, 'H');
 }
 
-char *dispatch_rgb(char spec)
+char *dispatch_rgb(char r, char g, char b)
 {
-    (void)spec;
+    color = 16
+            + (36 * (r - '0'))
+            + (6  * (g - '0'))
+            + (b - '0');
 
-    return NULL;
+    return encode_color256(color, 'f');
 }
