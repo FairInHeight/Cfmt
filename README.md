@@ -20,6 +20,11 @@ cfmt adds a compact formatting syntax to C strings and provides `printf`-style w
 
 cfmt formatting begins with `\&`.
 
+<div style="border: 1px solid #30363d; border-radius: 6px; padding: 16px; background-color: #161b22;">
+  <p><b>This text is bold</b> inside a custom container box!</p>
+  <p><i>This text is italicized</i>, and you can keep standard markdown-style structures here.</p>
+</div>
+
 ### Styles
 
 ```ansi
