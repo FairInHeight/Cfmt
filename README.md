@@ -22,16 +22,17 @@ cfmt formatting begins with `\&`.
 
 ### Styles
 
-
-\b  $${\\mathbf{Bold}}$$
+```ansi
+\b  [1mBold[22m
 \d  Dim
-\i  $${\\mathit{Italic}}$$
-\u  __Underline__
+\i  Italic
+\u  Underline
 \k  Blink
 \v  Inverse
 \n  Hidden
-\t  ~~Strikethrough~~
+\t  Strikethrough
 \r  Reset
+```
 
 ### Foreground Colors
 
