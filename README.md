@@ -40,9 +40,9 @@ Use `*` for bright colors.
 
 | Color | Color Code | Ansi Sequence | Bright Color Code | Ansi Sequence |
 | :---: | :---: | :---: | :---: | :---: |
-| Black | \\&0 | `ESC[30m` | \\&*0 | `ESC[90m` |
+| $\textcolor{black}{\text{Black}}$ | \\&0 | `ESC[30m` | \\&*0 | `ESC[90m` |
 | $\textcolor{red}{\text{Red}}$ | \\&1 | `ESC[31m` | \\&*1 | `ESC[91m` |
-| Green | \\&2 | `ESC[32m` | \\&*2 | `ESC[92m` |
+| $\textcolor{green}{\text{Green}}$ | \\&2 | `ESC[32m` | \\&*2 | `ESC[92m` |
 | Yellow | \\&3 | `ESC[33m` | \\&*3 | `ESC[93m` |
 | Blue | \\&4 | `ESC[34m` | \\&*4 | `ESC[94m` |
 | Magenta | \\&5 | `ESC[35m` | \\&*5 | `ESC[95m` |
