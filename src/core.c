@@ -168,10 +168,10 @@ char *fmtstr(const char *input)
 
 
 // Converts a printf-style format specifier into a string.
-char *fmtspec(char spec, va_list *args)
+FmtResult fmtspec(char spec, va_list *args)
 {
     if (args == NULL)
-        return NULL;
+        return (FmtResult){ .output = NULL, .status = FMT_ERROR };
 
     // %s
     if (spec == 's')
@@ -181,17 +181,15 @@ char *fmtspec(char spec, va_list *args)
         if (string == NULL || strlen(string) == SIZE_MAX)
             string = "(null)";
 
-        // fmtin() assembles the complete string first and then sends
-        // the entire result through fmtstr() exactly once.
         size_t size = strlen(string) + 1;
         char *output = malloc(size);
 
         if (output == NULL)
-            return NULL;
+            return (FmtResult){ .output = NULL, .status = FMT_ERROR };
 
         memcpy(output, string, size);
 
-        return output;
+        return (FmtResult){ .output = output, .status = FMT_OK };
     }
 
     // %c
@@ -202,12 +200,12 @@ char *fmtspec(char spec, va_list *args)
         char *output = malloc(2);
 
         if (output == NULL)
-            return NULL;
+            return (FmtResult){ .output = NULL, .status = FMT_ERROR };
 
         output[0] = (char)character;
         output[1] = '\0';
 
-        return output;
+        return (FmtResult){ .output = output, .status = FMT_OK };
     }
 
     // %i, %d
@@ -218,16 +216,16 @@ char *fmtspec(char spec, va_list *args)
         int size = snprintf(NULL, 0, "%i", number);
 
         if (size < 0)
-            return NULL;
+            return (FmtResult){ .output = NULL, .status = FMT_ERROR };
 
         char *output = malloc((size_t)size + 1);
 
         if (output == NULL)
-            return NULL;
+            return (FmtResult){ .output = NULL, .status = FMT_ERROR };
 
         snprintf(output, (size_t)size + 1, "%i", number);
 
-        return output;
+        return (FmtResult){ .output = output, .status = FMT_OK };
     }
 
     // %f
@@ -238,19 +236,19 @@ char *fmtspec(char spec, va_list *args)
         int size = snprintf(NULL, 0, "%f", number);
 
         if (size < 0)
-            return NULL;
+            return (FmtResult){ .output = NULL, .status = FMT_ERROR };
 
         char *output = malloc((size_t)size + 1);
 
         if (output == NULL)
-            return NULL;
+            return (FmtResult){ .output = NULL, .status = FMT_ERROR };
 
         snprintf(output, (size_t)size + 1, "%f", number);
 
-        return output;
+        return (FmtResult){ .output = output, .status = FMT_OK };
     }
 
-    return NULL;
+    return (FmtResult){ .output = NULL, .status = FMT_INVALID };
 }
 
 // Appends a string to the output buffer.
@@ -307,29 +305,38 @@ char *fmtin(const char *input, va_list *args)
         // Handle printf-style format specifiers.
         if (input[index] == '%' && input[index + 1] != '\0')
         {
-            char *formatted = fmtspec(input[index + 1], args);
+            FmtResult result = fmtspec(input[index + 1], args);
 
-            if (formatted != NULL)
+            if (result.status == FMT_INVALID)
             {
-                // Append the formatted argument.
-                if (append_string(
-                        &output,
-                        &output_size,
-                        &out_index,
-                        formatted) != 0)
-                {
-                    free(formatted);
-                    free(output);
-                    return NULL;
-                }
-
-                free(formatted);
-
-                // Skip the format specifier.
-                index++;
-
+                output[out_index++] = input[index];
                 continue;
             }
+
+            if (result.status == FMT_ERROR || result.output == NULL)
+            {
+                free(output);
+                return NULL;
+            }
+
+            // Append the formatted argument.
+            if (append_string(
+                    &output,
+                    &output_size,
+                    &out_index,
+                    result.output) != 0)
+            {
+                free(result.output);
+                free(output);
+                return NULL;
+            }
+
+            free(result.output);
+
+            // Skip the format specifier.
+            index++;
+
+            continue;
         }
 
         // Append normal characters.
