@@ -1,5 +1,3 @@
-<div align="center">
-
 # cfmt
 
 A lightweight C23 library for readable ANSI terminal formatting.
@@ -189,6 +187,6 @@ cfmt is intentionally small and dependency-light, with the parser, codecs, state
 
 This project is actively in development. Changes to the source and readme could happen at any time. If you intend to use this library, please make sure you are keeping up to date with the changes until development is finished. Expect to see the full 256 color table, gretyscale ramp, hex RGB support and specific resets for each style in the near future. I will consider this project complete once all those features are implemented, but I may decide to add more after 1.0 if there is demand or reason for it. I use this library in my own C testing right now and I am orienting this to be a standard library for C Prime (check my gh profile).
 
-</div>
+
 $${\\color{red}This text is red!}$$
 $${\\color{#9370DB}This text is custom purple!}$$
