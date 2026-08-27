@@ -59,6 +59,11 @@ char *fmtstr(const char *input)
 
             char *ansi = NULL;
 
+            DispatchContext ctx = {
+                .input = input,
+                .index = &index
+            };
+
             DispatchType type = dispatch(fspec);
 
             switch (type)
@@ -72,205 +77,25 @@ char *fmtstr(const char *input)
                     break;
 
                 case DISPATCH_BACKGROUND:
-                {
-                    char fspec2 = input[index + 1];
-
-                    if (!((fspec2 >= '0' && fspec2 <= '7') ||
-                        fspec2 == '9'))
-                        goto invalid;
-
-                    ansi = dispatch_background(fspec2);
-                    // Consume the color digit.
-                    index++;
-
+                    ansi = dispatch_background(&ctx);
                     break;
-                }
 
                 case DISPATCH_BRIGHT_FOREGROUND:
-                {
-                    char fspec2 = input[index + 1];
-
-                    if (!((fspec2 >= '0' && fspec2 <= '7') ||
-                        fspec2 == '9'))
-                        goto invalid;
-
-                    ansi = dispatch_bright_foreground(fspec2);
-                    // Consume the color digit.
-                    index++;
-
+                    ansi = dispatch_bright_foreground(&ctx);
                     break;
-                }
 
                 case DISPATCH_BRIGHT_BACKGROUND:
-                {
-                    char fspec2 = input[index + 1];
-
-                    if (!((fspec2 >= '0' && fspec2 <= '7') ||
-                        fspec2 == '9'))
-                        goto invalid;
-
-                    ansi = dispatch_bright_background(fspec2);
-                    // Consume the color digit.
-                    index++;
-
+                    ansi = dispatch_bright_background(&ctx);
                     break;
-                }
 
                 case DISPATCH_RGB:
-                {
-                    char fspec2 = input[index + 1];
-                    if (fspec2 == '\0' || fspec2 == '\n')
-                        goto invalid;
-
-                    char fspec3 = input[index + 2];
-                    if (fspec3 == '\0' || fspec3 == '\n')
-                        goto invalid;
-
-                    char fspec4 = input[index + 3];
-
-                    if ((fspec2 < '0' || fspec2 > '5') ||
-                        (fspec3 < '0' || fspec3 > '5') ||
-                        (fspec4 < '0' || fspec4 > '5'))
-                            goto invalid;
-
-                    ansi = dispatch_rgb(fspec2, fspec3, fspec4);
-                    // Consume all formatting digits.
-                    index += 3;
+                    ansi = dispatch_rgb(&ctx);
                     break;
-                }
 
                 case DISPATCH_INVALID:
-
-                    invalid:
-                    output[out_index++] = '&';
-                    output[out_index++] = fspec;
-                    clr_(parsing);
-                    continue;
-            }
-
-            /*
-            // -------------------------
-            // STYLE
-            // -------------------------
-            if (fspec == 'b' ||
-                fspec == 'd' ||
-                fspec == 'i' ||
-                fspec == 'u' ||
-                fspec == 'k' ||
-                fspec == 'v' ||
-                fspec == 'n' ||
-                fspec == 't' ||
-                fspec == 'r')
-            {
-                style = decode_style(fspec);
-                ansi = encode_style(style);
-            }
-
-            // -------------------------
-            // FOREGROUND COLOR
-            // -------------------------
-            else if ((fspec >= '0' && fspec <= '7') ||
-                     fspec == '9')
-            {
-                color = decode_color(fspec);
-                ansi = encode_color(color, 'f');
-            }
-
-            // -------------------------
-            // BACKGROUND COLOR
-            // -------------------------
-            else if (fspec == 'h')
-            {
-                char fspec2 = input[index + 1];
-
-                if (!((fspec2 >= '0' && fspec2 <= '7') ||
-                      fspec2 == '9'))
                     goto invalid;
-
-                color = decode_color(fspec2);
-                ansi = encode_color(color, 'b');
-                // Consume the color digit.
-                index++;
             }
 
-            // -------------------------
-            // BRIGHT FOREGROUND COLORS
-            // -------------------------
-            else if (fspec == '*')
-            {
-                char fspec2 = input[index + 1];
-
-                if (!((fspec2 >= '0' && fspec2 <= '7') ||
-                      fspec2 == '9'))
-                    goto invalid;
-
-                color = decode_color(fspec2);
-                ansi = encode_color(color, 'B');
-                // Consume the color digit.
-                index++;
-            }
-
-            // -------------------------
-            // BRIGHT BACKGROUND COLORS
-            // -------------------------
-            else if (fspec == 'H')
-            {
-                char fspec2 = input[index + 1];
-
-                if (!((fspec2 >= '0' && fspec2 <= '7') ||
-                      fspec2 == '9'))
-                    goto invalid;
-
-                color = decode_color(fspec2);
-                ansi = encode_color(color, 'h');
-                // Consume the color digit.
-                index++;
-            }
-
-            // -------------------------
-            // RGB COLOR CUBE
-            // -------------------------
-            else if (fspec == 'c')
-            {
-                char fspec2 = input[index + 1];
-                if (fspec2 == '\0' || fspec2 == '\n')
-                    goto invalid;
-
-                char fspec3 = input[index + 2];
-                if (fspec3 == '\0' || fspec3 == '\n')
-                    goto invalid;
-
-                char fspec4 = input[index + 3];
-
-                if ((fspec2 < '0' || fspec2 > '5') ||
-                    (fspec3 < '0' || fspec3 > '5') ||
-                    (fspec4 < '0' || fspec4 > '5'))
-                        goto invalid;
-
-                // ANSI formula for decoding 6x6x6 color cube into a byte value.
-                color = 16
-                        + (36 * (fspec2 - '0'))
-                        + (6  * (fspec3 - '0'))
-                        + (fspec4 - '0');
-
-                ansi = encode_color256(color, 'f');
-                // Consume all formatting digits.
-                index += 3;
-            }
-
-            // -------------------------
-            // INVALID
-            // -------------------------
-            else
-            {
-                invalid:
-                    output[out_index++] = '&';
-                    output[out_index++] = fspec;
-
-                    clr_(parsing);
-                    continue;
-            }
-            */
 
             // Encoding failed.
             if (ansi == NULL)
