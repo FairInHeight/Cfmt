@@ -26,10 +26,10 @@ cfmt formatting begins with `\&`.
 * **&b** — **Bold**
 * **&d** — Dim
 * **&i** — *Italic*
-* **&u** — $\underline{\text{Underline}}$
+* **&u** — U̲n̲d̲e̲r̲l̲i̲n̲e̲
 * **&k** — Blinking
 * **&v** — Inverted
-* **&n** — Hidden
+* **&n** — `      `
 * **&t** — ~~Strikethrough~~
 * **&r** — `Reset`
 
