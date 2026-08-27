@@ -36,7 +36,7 @@ cfmt formatting begins with `\&`.
 
 ### Foreground Colors
 
-| Cfmt Code | Style | Ansi Sequence |
+| Cfmt Code | Color | Ansi Sequence |
 | :---: | :---: | :---: |
 | \\&0 | Black | `ESC[30m` |
 | \\&1 | Red | `ESC[31m` |
@@ -46,17 +46,17 @@ cfmt formatting begins with `\&`.
 | \\&5 | Magenta | `ESC[35m` |
 | \\&6 | Cyan | `ESC[36m` |
 | \\&7 | White | `ESC[37m` |
-| \\&9 | Default | `ESC[39m` |
+| \\&9 | Color Reset | `ESC[39m` |
 
 ### Background Colors
 
 Prefix the color with `h`:
 
-```text
-\&h1  Red background
-\&h2  Green background
-\&h7  White background
-```
+| Cfmt Code | Highlight | Ansi Sequence |
+| :---: | :---: | :---: |
+| \\&h0 | Black BG | `ESC[40m` |
+| \\&h1 | Red BG | `ESC[41m` |
+| ... |
 
 ### Bright Colors
 
