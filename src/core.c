@@ -58,13 +58,9 @@ char *fmtstr(const char *input)
             };
 
             DispatchHandler handler = dispatch(fspec);
-            char *ansi = NULL;
 
-            if (handler != NULL)
-                ansi = handler(&ctx);
-
-            // Invalid formatting is emitted literally.
-            if (ansi == NULL)
+            // Unknown format specifiers are emitted literally.
+            if (handler == NULL)
             {
                 output[out_index++] = '&';
                 output[out_index++] = fspec;
@@ -72,6 +68,25 @@ char *fmtstr(const char *input)
                 continue;
             }
 
+            DispatchResult result = handler(&ctx);
+
+            // Invalid formatting is emitted literally.
+            if (result.status == DISPATCH_INVALID)
+            {
+                output[out_index++] = '&';
+                output[out_index++] = fspec;
+                clr_(parsing);
+                continue;
+            }
+
+            // An actual dispatch/encoding failure is fatal.
+            if (result.status == DISPATCH_ERROR || result.ansi == NULL)
+            {
+                free(output);
+                return NULL;
+            }
+
+            char *ansi = result.ansi;
             size_t ansi_size = strlen(ansi);
 
             if (ansi_size > SIZE_MAX - output_size)
