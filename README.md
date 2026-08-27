@@ -26,7 +26,7 @@ cfmt formatting begins with `\&`.
 \b  Bold
 \d  Dim
 \i  Italic
-\u  <u>Underline</u>
+\u  U̲n̲d̲e̲r̲l̲i̲n̲e̲
 \k  Blink
 \v  Inverse
 \n  Hidden
