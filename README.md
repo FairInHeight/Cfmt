@@ -22,8 +22,15 @@ cfmt formatting begins with `\&`.
 
 | Format Code | Example |
 | :--- | :--- |
-| `fnm use` | Switch Node version | **Active** |
-| `docker compose up` | Launch services | *Running* |
+| \&b | **Bold** |
+| \&d | Dim |
+| \&i | *Italic* |
+| \&u | __Underline__ |
+| \&k | Blinking |
+| \&v | Inverted |
+| \&n | Hidden |
+| \&t | ~~Strikethrough~~ |
+| \&r | `Reset` |
 
 ### Styles
 
