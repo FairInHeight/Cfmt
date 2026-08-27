@@ -20,9 +20,16 @@ cfmt adds a compact formatting syntax to C strings and provides `printf`-style w
 
 cfmt formatting begins with `\&`.
 
-| <span>&nbsp;</span> |
-| :--- |
-| **This text is bold** inside a clean table box! <br> *Italic formats work right here too.* |
+<table>
+<tr>
+<td>
+
+**This text is bold** inside a clean table box! <br>
+*Italic formats work right here too.*
+
+</td>
+</tr>
+</table>
 
 ### Styles
 
