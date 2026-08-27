@@ -34,6 +34,13 @@ test: $(LIB)
 	$(CC) $(CFLAGS) -Iinclude ../main.c ../commands.c  $(LIB) -o $(TEST)
 
 
+# Clean, build, and run tests.
+automake:
+	$(MAKE) clean
+	$(MAKE)
+	$(MAKE) test
+
+
 # Remove generated files.
 clean:
 	rm -f build/*.o
@@ -46,4 +53,4 @@ clean:
 -include $(DEPS)
 
 
-.PHONY: all test clean
+.PHONY: all test clean automake
