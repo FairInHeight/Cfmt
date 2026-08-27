@@ -116,7 +116,7 @@ char *fmtstr(const char *input)
                         goto invalid;
 
                     color = decode_color(fspec2);
-                    ansi = encode_color(color, 'h');
+                    ansi = encode_color(color, 'H');
                     // Consume the color digit.
                     index++;
                     
