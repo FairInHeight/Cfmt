@@ -35,7 +35,7 @@ test: $(LIB)
 
 
 # Clean, build, and run tests.
-automake:
+auto:
 	$(MAKE) clean
 	$(MAKE)
 	$(MAKE) test
