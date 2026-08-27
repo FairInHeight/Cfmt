@@ -1,4 +1,6 @@
 #include "dispatch.h"
+#include "codec.h"
+#include "style.h"
 
 static const DispatchType dispatch_table[256] =
 {
@@ -52,4 +54,11 @@ static const DispatchType dispatch_table[256] =
 DispatchType dispatch(char spec)
 {
     return dispatch_table[(unsigned char)spec];
+}
+
+char *dispatch_style(char spec)
+{
+    style = decode_style(spec);
+
+    return encode_style(style);
 }
