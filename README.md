@@ -36,7 +36,7 @@ When writing cfmt codes in C string literals, use `\\&` because C interprets a s
 
 ### Colors
 
-Use `*` for bright colors.
+Use `*` for bright foreground colors.
 
 | Color | Color Code | Ansi Sequence | Bright Color | Bright Color Code | Ansi Sequence |
 | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -53,19 +53,19 @@ Use `*` for bright colors.
 ### Background/Highlight Colors
 
 Prefix the color with `h` for standard colors,
-or `*` for bright colors.
+or `H` for bright colors.
 
-| Color | Highlight/BG Code | Ansi Sequence | Bright Color | Bright BG/Highlight | Ansi Sequence |
+| Color | Color Code | Ansi Sequence | Bright Color | Bright BG/Highlight | Ansi Sequence |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| $\textcolor{black}{\text{Black}}$ | \\&h0 | `ESC[40m` | $\textcolor{#7F7F7F}{\text{Bright Black}}$ | \\&*0 | `ESC[100m` |
-| $\textcolor{red}{\text{Red}}$ | \\&h1 | `ESC[41m` | $\textcolor{#FF5555}{\text{Bright Red}}$ | \\&*1 | `ESC[101m` |
-| $\textcolor{green}{\text{Green}}$ | \\&h2 | `ESC[42m` | $\textcolor{#55FF55}{\text{Bright Green}}$ | \\&*2 | `ESC[102m` |
-| $\textcolor{yellow}{\text{Yellow}}$ | \\&h3 | `ESC[43m` | $\textcolor{#FFFF55}{\text{Bright Yellow}}$ | \\&*3 | `ESC[103m` |
-| $\textcolor{blue}{\text{Blue}}$ | \\&h4 | `ESC[44m` | $\textcolor{#5555FF}{\text{Bright Blue}}$ | \\&*4 | `ESC[104m` |
-| $\textcolor{magenta}{\text{Magenta}}$ | \\&h5 | `ESC[45m` | $\textcolor{#FF55FF}{\text{Bright Magenta}}$ | \\&*5 | `ESC[105m` |
-| $\textcolor{cyan}{\text{Cyan}}$ | \\&h6 | `ESC[46m` | $\textcolor{#55FFFF}{\text{Bright Cyan}}$ | \\&*6 | `ESC[106m` |
-| White | \\&h7 | `ESC[47m` | $\textcolor{#FFFFFF}{\text{Bright White}}$ | \\&*7 | `ESC[107m` |
-| Default BG/Highlight | \\&h9 | `ESC[49m` | N / A | \\&*9 | `ESC[109m` |
+| $\textcolor{black}{\text{Black}}$ | \\&h0 | `ESC[40m` | $\textcolor{#7F7F7F}{\text{Bright Black}}$ | \\&H0 | `ESC[100m` |
+| $\textcolor{red}{\text{Red}}$ | \\&h1 | `ESC[41m` | $\textcolor{#FF5555}{\text{Bright Red}}$ | \\&H1 | `ESC[101m` |
+| $\textcolor{green}{\text{Green}}$ | \\&h2 | `ESC[42m` | $\textcolor{#55FF55}{\text{Bright Green}}$ | \\&H2 | `ESC[102m` |
+| $\textcolor{yellow}{\text{Yellow}}$ | \\&h3 | `ESC[43m` | $\textcolor{#FFFF55}{\text{Bright Yellow}}$ | \\&H3 | `ESC[103m` |
+| $\textcolor{blue}{\text{Blue}}$ | \\&h4 | `ESC[44m` | $\textcolor{#5555FF}{\text{Bright Blue}}$ | \\&H4 | `ESC[104m` |
+| $\textcolor{magenta}{\text{Magenta}}$ | \\&h5 | `ESC[45m` | $\textcolor{#FF55FF}{\text{Bright Magenta}}$ | \\&H5 | `ESC[105m` |
+| $\textcolor{cyan}{\text{Cyan}}$ | \\&h6 | `ESC[46m` | $\textcolor{#55FFFF}{\text{Bright Cyan}}$ | \\&H6 | `ESC[106m` |
+| White | \\&h7 | `ESC[47m` | $\textcolor{#FFFFFF}{\text{Bright White}}$ | \\&H7 | `ESC[107m` |
+| Default BG/Highlight | \\&h9 | `ESC[49m` | N / A | \\&H9 | `ESC[109m` |
 
 ### RGB Color Cube
 
@@ -130,7 +130,7 @@ int fprintfx(FILE *stream, const char *input, ...);
 int main(void)
 {
     printfx("\\&2Hello, %s!\\&r\n", "world");
-    printfx("\\&B1Warning\\&r: value = %d\n", 42);
+    printfx("\\&*1Warning\\&r: value = %d\n", 42);
 
     return 0;
 }
