@@ -48,7 +48,7 @@ Use `*` for bright colors.
 | $\textcolor{magenta}{\text{Magenta}}$ | \\&5 | `ESC[35m` | $\textcolor{#FF55FF}{\text{Bright Magenta}}$ | \\&*5 | `ESC[95m` |
 | $\textcolor{cyan}{\text{Cyan}}$ | \\&6 | `ESC[36m` | $\textcolor{#55FFFF}{\text{Bright Cyan}}$ | \\&*6 | `ESC[96m` |
 | White | \\&7 | `ESC[37m` | $\textcolor{#FFFFFF}{\text{Bright White}}$ | \\&*7 | `ESC[97m` |
-| Color Reset | \\&9 | `ESC[39m` | N / A | \\&*9 | `ESC[99m` |
+| Default Color | \\&9 | `ESC[39m` | N / A | \\&*9 | `ESC[99m` |
 
 ### Background/Highlight Colors
 
@@ -65,7 +65,7 @@ or `H` for a bright colors.
 | $\textcolor{magenta}{\text{Magenta}}$ | \\&h5 | `ESC[45m` | $\textcolor{#FF55FF}{\text{Bright Magenta}}$ | \\&H5 | `ESC[105m` |
 | $\textcolor{cyan}{\text{Cyan}}$ | \\&h6 | `ESC[46m` | $\textcolor{#55FFFF}{\text{Bright Cyan}}$ | \\&H6 | `ESC[106m` |
 | White | \\&h7 | `ESC[47m` | $\textcolor{#FFFFFF}{\text{Bright White}}$ | \\&H7 | `ESC[107m` |
-| BG/Highlight Reset | \\&h9 | `ESC[49m` | N / A | \\&H9 | `ESC[109m` |
+| Default BG/Highlight | \\&h9 | `ESC[49m` | N / A | \\&H9 | `ESC[109m` |
 
 ### RGB Color Cube
 
