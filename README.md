@@ -23,9 +23,9 @@ cfmt formatting begins with `\&`.
 ### Styles
 
 ```text
-\b  **Bold**
+\b  $${\\mathbf{Bold}}$$
 \d  Dim
-\i  *Italic*
+\i  $${\\mathit{Italic}}$$
 \u  __Underline__
 \k  Blink
 \v  Inverse
