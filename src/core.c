@@ -11,11 +11,16 @@
 // Converts cfmt codes such as \&1 and \&h2 to ANSI.
 char *fmtstr(const char *input)
 {
-    if (input == NULL || strlen(input) == SIZE_MAX)
+    if (input == NULL)
+        return NULL;
+
+    size_t input_size = strlen(input);
+
+    if (input_size == SIZE_MAX)
         return NULL;
 
     // Start with enough space for the original input plus '\0'.
-    size_t output_size = strlen(input) + 1;
+    size_t output_size = input_size + 1;
     char *output = malloc(output_size);
 
     if (output == NULL)
@@ -178,7 +183,7 @@ FmtResult fmtspec(char spec, va_list *args)
     {
         char *string = va_arg(*args, char *);
 
-        if (string == NULL || strlen(string) == SIZE_MAX)
+        if (string == NULL)
             string = "(null)";
 
         size_t size = strlen(string) + 1;
@@ -288,11 +293,16 @@ static int append_string(
 // Processes the input string and printf-style arguments.
 char *fmtin(const char *input, va_list *args)
 {
-    if (input == NULL || args == NULL || strlen(input) == SIZE_MAX)
+    if (input == NULL || args == NULL)
+        return NULL;
+
+    size_t input_size = strlen(input);
+
+    if (input_size == SIZE_MAX)
         return NULL;
 
     // Start with enough space for the input string.
-    size_t output_size = strlen(input) + 1;
+    size_t output_size = input_size + 1;
     char *output = malloc(output_size);
 
     if (output == NULL)
