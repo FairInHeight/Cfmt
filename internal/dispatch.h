@@ -1,6 +1,14 @@
 #ifndef CFMT_DISPATCH_H
 #define CFMT_DISPATCH_H
 
+#include <stddef.h>
+
+typedef struct
+{
+    const char *input;
+    size_t *index;
+} DispatchContext;
+
 typedef enum
 {
     DISPATCH_INVALID,
@@ -16,9 +24,9 @@ DispatchType dispatch(char spec);
 
 char *dispatch_style(char spec);
 char *dispatch_foreground(char spec);
-char *dispatch_background(char spec);
-char *dispatch_bright_foreground(char spec);
-char *dispatch_bright_background(char spec);
-char *dispatch_rgb(char r, char g, char b);
+char *dispatch_background(DispatchContext *ctx);
+char *dispatch_bright_foreground(DispatchContext *ctx);
+char *dispatch_bright_background(DispatchContext *ctx);
+char *dispatch_rgb(DispatchContext *ctx);
 
 #endif
