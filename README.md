@@ -26,16 +26,13 @@ cfmt formatting begins with `\&`.
 | :---: | :---: | :---: |
 | \&b | Bold | `ESC[1m` |
 | \&d | Dim | `ESC[2m` |
-```text
-\&i Italic
-\&u Underline
-\&k Blinking
-\&c Inverted
-\&n Hidden
-\&t Strikethrough
-\&r Reset
-```
-
+| \&i | Italic | `ESC[3m` |
+| \&u | Underline | `ESC[4m` |
+| \&k | Blinking | `ESC[5m` |
+| \&v | Inverted | `ESC[67m` |
+| \&n | Hidden | `ESC[8m` |
+| \&d | Strikethrough | `ESC[9m` |
+| \&r | Style Reset | `ESC[0m` |
 
 ### Foreground Colors
 
