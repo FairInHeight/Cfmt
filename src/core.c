@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdint.h>
 
 #include "dispatch.h"
 #include "../internal/flags.h"
@@ -237,6 +238,40 @@ char *fmtspec(char spec, va_list *args)
     return NULL;
 }
 
+// Appends a string to the output buffer.
+static int append_string(
+    char **output,
+    size_t *output_size,
+    size_t *out_index,
+    const char *string)
+{
+    if (output == NULL ||
+    output_size == NULL ||
+    out_index == NULL ||
+    string == NULL)
+        return -1;
+
+    size_t string_size = strlen(string);
+
+    if (string_size > SIZE_MAX - *output_size)
+        return -1;
+
+    char *new_output =
+        realloc(*output, *output_size + string_size);
+
+    if (new_output == NULL)
+        return -1;
+
+    *output = new_output;
+
+    memcpy(*output + *out_index, string, string_size);
+
+    *out_index += string_size;
+    *output_size += string_size;
+
+    return 0;
+}
+
 // Processes the input string and printf-style arguments.
 char *fmtin(const char *input, va_list *args)
 {
@@ -297,38 +332,4 @@ char *fmtin(const char *input, va_list *args)
     free(output);
 
     return formatted_output;
-}
-
-// Appends a string to the output buffer.
-static int append_string(
-    char **output,
-    size_t *output_size,
-    size_t *out_index,
-    const char *string)
-{
-    if (output == NULL ||
-    output_size == NULL ||
-    out_index == NULL ||
-    string == NULL)
-        return -1;
-
-    size_t string_size = strlen(string);
-
-    if (string_size > SIZE_MAX - *output_size)
-        return -1;
-
-    char *new_output =
-        realloc(*output, *output_size + string_size);
-
-    if (new_output == NULL)
-        return -1;
-
-    *output = new_output;
-
-    memcpy(*output + *out_index, string, string_size);
-
-    *out_index += string_size;
-    *output_size += string_size;
-
-    return 0;
 }
