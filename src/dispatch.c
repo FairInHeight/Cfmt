@@ -44,91 +44,116 @@ DispatchHandler dispatch(char spec)
     return dispatch_table[(unsigned char)spec];
 }
 
-char *dispatch_style(DispatchContext *ctx)
+DispatchResult dispatch_style(DispatchContext *ctx)
 {
     if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
-        return NULL;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
 
     style = decode_style(ctx->input[*ctx->index]);
 
-    return encode_style(style);
+    char *ansi = encode_style(style);
+
+    if (ansi == NULL)
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
+
+    return (DispatchResult){ .ansi = ansi, .status = DISPATCH_OK };
 }
 
-char *dispatch_foreground(DispatchContext *ctx)
+DispatchResult dispatch_foreground(DispatchContext *ctx)
 {
     if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
-        return NULL;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
 
     color = decode_color(ctx->input[*ctx->index]);
 
-    return encode_color(color, 'f');
+    char *ansi = encode_color(color, 'f');
+
+    if (ansi == NULL)
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
+
+    return (DispatchResult){ .ansi = ansi, .status = DISPATCH_OK };
 }
 
-char *dispatch_background(DispatchContext *ctx)
+DispatchResult dispatch_background(DispatchContext *ctx)
 {
     char spec;
 
     if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
-        return NULL;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
 
     spec = ctx->input[*ctx->index + 1];
 
     if (!((spec >= '0' && spec <= '7') || spec == '9'))
-        return NULL;
-
-    (*ctx->index)++;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_INVALID };
 
     color = decode_color(spec);
 
-    return encode_color(color, 'b');
+    char *ansi = encode_color(color, 'b');
+
+    if (ansi == NULL)
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
+
+    (*ctx->index)++;
+
+    return (DispatchResult){ .ansi = ansi, .status = DISPATCH_OK };
 }
 
-char *dispatch_bright_foreground(DispatchContext *ctx)
+DispatchResult dispatch_bright_foreground(DispatchContext *ctx)
 {
     char spec;
 
     if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
-        return NULL;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
 
     spec = ctx->input[*ctx->index + 1];
 
     if (!((spec >= '0' && spec <= '7') || spec == '9'))
-        return NULL;
-
-    (*ctx->index)++;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_INVALID };
 
     color = decode_color(spec);
 
-    return encode_color(color, 'B');
+    char *ansi = encode_color(color, '*');
+
+    if (ansi == NULL)
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
+
+    (*ctx->index)++;
+
+    return (DispatchResult){ .ansi = ansi, .status = DISPATCH_OK };
 }
 
-char *dispatch_bright_background(DispatchContext *ctx)
+DispatchResult dispatch_bright_background(DispatchContext *ctx)
 {
     char spec;
 
     if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
-        return NULL;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
 
     spec = ctx->input[*ctx->index + 1];
 
     if (!((spec >= '0' && spec <= '7') || spec == '9'))
-        return NULL;
-
-    (*ctx->index)++;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_INVALID };
 
     color = decode_color(spec);
 
-    return encode_color(color, 'H');
+    char *ansi = encode_color(color, 'H');
+
+    if (ansi == NULL)
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
+
+    (*ctx->index)++;
+
+    return (DispatchResult){ .ansi = ansi, .status = DISPATCH_OK };
 }
 
-char *dispatch_rgb(DispatchContext *ctx)
+DispatchResult dispatch_rgb(DispatchContext *ctx)
 {
     char r;
     char g;
     char b;
 
     if (ctx == NULL || ctx->input == NULL || ctx->index == NULL)
-        return NULL;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
 
     r = ctx->input[*ctx->index + 1];
     g = ctx->input[*ctx->index + 2];
@@ -137,19 +162,24 @@ char *dispatch_rgb(DispatchContext *ctx)
     if (r == '\0' || r == '\n' ||
         g == '\0' || g == '\n' ||
         b == '\0' || b == '\n')
-        return NULL;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_INVALID };
 
     if (r < '0' || r > '5' ||
         g < '0' || g > '5' ||
         b < '0' || b > '5')
-        return NULL;
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_INVALID };
 
     color = 16
             + (36 * (r - '0'))
             + (6  * (g - '0'))
             + (b - '0');
 
+    char *ansi = encode_color256(color, 'f');
+
+    if (ansi == NULL)
+        return (DispatchResult){ .ansi = NULL, .status = DISPATCH_ERROR };
+
     (*ctx->index) += 3;
 
-    return encode_color256(color, 'f');
+    return (DispatchResult){ .ansi = ansi, .status = DISPATCH_OK };
 }
