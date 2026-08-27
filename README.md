@@ -161,6 +161,12 @@ To remove generated files:
 make clean
 ```
 
+As of version 0.2.1,  you can execute a full clean and rebuild of the library and test environment in one line with:
+
+```bash
+make auto
+```
+
 ## Project Structure
 
 ```text
