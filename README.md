@@ -29,9 +29,9 @@ cfmt formatting begins with `\&`.
 | Italic | \\&i | `ESC[3m` |
 | Underline | \\&u | `ESC[4m` |
 | Blinking | \\&k | `ESC[5m` |
-| Inverted | \\&v | `ESC[67m` |
+| Inverted | \\&v | `ESC[7m` |
 | Hidden | \\&n | `ESC[8m` |
-| Strikethrough | \\&d | `ESC[9m` |
+| Strikethrough | \\&t | `ESC[9m` |
 | Style Reset | \\&r | `ESC[0m` |
 
 ### Colors
@@ -59,13 +59,13 @@ or `H` for a bright colors.
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | $\textcolor{black}{\text{Black}}$ | \\&h0 | `ESC[40m` | $\textcolor{#7F7F7F}{\text{Bright Black}}$ | \\&H0 | `ESC[100m` |
 | $\textcolor{red}{\text{Red}}$ | \\&h1 | `ESC[41m` | $\textcolor{#FF5555}{\text{Bright Red}}$ | \\&H1 | `ESC[101m` |
-| $\textcolor{green}{\text{Green}}$ | \\&h2 | `ESC[32m` | $\textcolor{#55FF55}{\text{Bright Green}}$ | \\&H2 | `ESC[102m` |
-| $\textcolor{yellow}{\text{Yellow}}$ | \\&h3 | `ESC[33m` | $\textcolor{#FFFF55}{\text{Bright Yellow}}$ | \\&H3 | `ESC[103m` |
-| $\textcolor{blue}{\text{Blue}}$ | \\&h4 | `ESC[34m` | $\textcolor{#5555FF}{\text{Bright Blue}}$ | \\&H4 | `ESC[104m` |
-| $\textcolor{magenta}{\text{Magenta}}$ | \\&h5 | `ESC[35m` | $\textcolor{#FF55FF}{\text{Bright Magenta}}$ | \\&H5 | `ESC[105m` |
-| $\textcolor{cyan}{\text{Cyan}}$ | \\&h6 | `ESC[36m` | $\textcolor{#55FFFF}{\text{Bright Cyan}}$ | \\&H6 | `ESC[106m` |
-| White | \\&h7 | `ESC[37m` | $\textcolor{#FFFFFF}{\text{Bright White}}$ | \\&H7 | `ESC[107m` |
-| BG/Highlight Reset | \\&h9 | `ESC[39m` | N / A | \\&H9 | `ESC[109m` |
+| $\textcolor{green}{\text{Green}}$ | \\&h2 | `ESC[42m` | $\textcolor{#55FF55}{\text{Bright Green}}$ | \\&H2 | `ESC[102m` |
+| $\textcolor{yellow}{\text{Yellow}}$ | \\&h3 | `ESC[43m` | $\textcolor{#FFFF55}{\text{Bright Yellow}}$ | \\&H3 | `ESC[103m` |
+| $\textcolor{blue}{\text{Blue}}$ | \\&h4 | `ESC[44m` | $\textcolor{#5555FF}{\text{Bright Blue}}$ | \\&H4 | `ESC[104m` |
+| $\textcolor{magenta}{\text{Magenta}}$ | \\&h5 | `ESC[45m` | $\textcolor{#FF55FF}{\text{Bright Magenta}}$ | \\&H5 | `ESC[105m` |
+| $\textcolor{cyan}{\text{Cyan}}$ | \\&h6 | `ESC[46m` | $\textcolor{#55FFFF}{\text{Bright Cyan}}$ | \\&H6 | `ESC[106m` |
+| White | \\&h7 | `ESC[47m` | $\textcolor{#FFFFFF}{\text{Bright White}}$ | \\&H7 | `ESC[107m` |
+| BG/Highlight Reset | \\&h9 | `ESC[49m` | N / A | \\&H9 | `ESC[109m` |
 
 ### RGB Color Cube
 
