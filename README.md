@@ -113,14 +113,11 @@ Include:
 Available functions:
 
 ```c
-char *fmtstr(const char *input);
-char *fmtspec(char spec, va_list *args);
-
 int printfx(const char *input, ...);
 int snprintfx(char *str, size_t size, const char *input, ...);
 int fprintfx(FILE *stream, const char *input, ...);
 ```
-`fmtstr()` decodes cfmt codes into ANSI escape sequences and returns the translated string. This is the main translation layer that runs the entire library. When formatting is active, `fmtstr()` automatically injects a reset sequence before every newline. This makes terminal messages easier to construct and prevents formatting from bleeding into subsequent lines. I will consider making this behavior toggleable in the API if there is demand for it.
+These functions work the exact same way as their standard library counterparts.
 
 ## Example
 
