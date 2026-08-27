@@ -23,15 +23,17 @@ cfmt formatting begins with `\&`.
 ### Styles
 
 
-* **&b** — **Bold**
-* **&d** — Dim
-* **&i** — *Italic*
-* **&u** — U̲n̲d̲e̲r̲l̲i̲n̲e̲
-* **&k** — Blinking
-* **&v** — Inverted
-* **&n** — `      `
-* **&t** — ~~Strikethrough~~
-* **&r** — `Reset`
+```text
+\&b Bold
+\&d Dim
+\&i Italic
+\&u Underline
+\&k Blinking
+\&c Inverted
+\&n Hidden
+\&t Strikethrough
+\&r Reset
+```
 
 
 ### Foreground Colors
