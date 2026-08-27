@@ -23,15 +23,23 @@ cfmt formatting begins with `\&`.
 ### Styles
 
 
-\b  Bold
-\d  Dim
-\i  Italic
-\u  U̲n̲d̲e̲r̲l̲i̲n̲e̲
-\k  Blink
-\v  Inverse
-\n  Hidden
-\t  Strikethrough
-\r  Reset
+$$
+\begin{array}{|l|l|}
+\hline
+\text{\textbf{Format Code}} & \text{\textbf{Example}} \\
+\hline
+\text{\&b} & \textbf{Bold} \\
+\text{\&d} & \text{Dim} \\
+\text{\&i} & \textit{Italic} \\
+\text{\&u} & \underline{\text{Underline}} \\
+\text{\&k} & \text{Blinking} \\
+\text{\&v} & \text{Inverted} \\
+\text{\&n} & \text{Hidden} \\
+\text{\&t} & \text{Strikethrough} \\
+\text{\&r} & \text{Reset} \\
+\hline
+\end{array}
+$$
 
 
 ### Foreground Colors
