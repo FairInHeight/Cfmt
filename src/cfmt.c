@@ -46,9 +46,6 @@ char *fmtstr(const char *input)
         if (is_(parsing))
         {
             char fspec = input[index];
-            //char fspec5 = input[index + 4];
-            //char fspec6 = input[index + 5];
-            //char fspec7 = input[index + 6];
 
             // Incomplete format at end of string.
             if (fspec == '\0')
@@ -97,7 +94,7 @@ char *fmtstr(const char *input)
 
                 if (!((fspec2 >= '0' && fspec2 <= '7') ||
                       fspec2 == '9'))
-                        goto invalid;
+                    goto invalid;
 
                 color = decode_color(fspec2);
                 ansi = encode_color(color, 'b');
@@ -106,15 +103,15 @@ char *fmtstr(const char *input)
             }
 
             // -------------------------
-            // BRIGHT COLORS
+            // BRIGHT FOREGROUND COLORS
             // -------------------------
-            else if (fspec == 'B')
+            else if (fspec == '*')
             {
                 char fspec2 = input[index + 1];
 
                 if (!((fspec2 >= '0' && fspec2 <= '7') ||
                       fspec2 == '9'))
-                        goto invalid;
+                    goto invalid;
 
                 color = decode_color(fspec2);
                 ansi = encode_color(color, 'B');
@@ -123,15 +120,15 @@ char *fmtstr(const char *input)
             }
 
             // -------------------------
-            // BRIGHT BACKGROUNDS
+            // BRIGHT BACKGROUND COLORS
             // -------------------------
-            else if (fspec == '*')
+            else if (fspec == 'H')
             {
                 char fspec2 = input[index + 1];
 
                 if (!((fspec2 >= '0' && fspec2 <= '7') ||
                       fspec2 == '9'))
-                        goto invalid;
+                    goto invalid;
 
                 color = decode_color(fspec2);
                 ansi = encode_color(color, 'h');
@@ -159,14 +156,14 @@ char *fmtstr(const char *input)
                     (fspec4 < '0' || fspec4 > '5'))
                         goto invalid;
 
-                //ansi formula for decoding 6x6x6 color cube into a byte value.
+                // ANSI formula for decoding 6x6x6 color cube into a byte value.
                 color = 16
                         + (36 * (fspec2 - '0'))
                         + (6  * (fspec3 - '0'))
                         + (fspec4 - '0');
 
                 ansi = encode_color256(color, 'f');
-                //consume all formatting digits
+                // Consume all formatting digits.
                 index += 3;
             }
 
