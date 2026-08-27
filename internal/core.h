@@ -3,8 +3,21 @@
 
 #include <stdarg.h>
 
+typedef enum
+{
+    FMT_OK,
+    FMT_INVALID,
+    FMT_ERROR
+} FmtStatus;
+
+typedef struct
+{
+    char *output;
+    FmtStatus status;
+} FmtResult;
+
 char *fmtstr(const char *input);
-char *fmtspec(char spec, va_list *args);
+FmtResult fmtspec(char spec, va_list *args);
 char *fmtin(const char *input, va_list *args);
 
 #endif
