@@ -20,15 +20,15 @@ cfmt adds a compact formatting syntax to C strings and provides `printf`-style w
 
 cfmt formatting begins with `\&`.
 
-| Command / Tool | Description | Status |
-| :--- | :--- | :--- |
+| Format Code | Example |
+| :--- | :--- |
 | `fnm use` | Switch Node version | **Active** |
 | `docker compose up` | Launch services | *Running* |
 
 ### Styles
 
-```ansi
-\b  \u001b[1mBold\u001b[22m
+```
+\b  Bold
 \d  Dim
 \i  Italic
 \u  Underline
