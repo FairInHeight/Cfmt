@@ -23,7 +23,7 @@ cfmt formatting begins with `\&`.
 ### Styles
 
 ```ansi
-\b  [1mBold[22m
+\b  ESC[1mBoldESC[22m
 \d  Dim
 \i  Italic
 \u  Underline
