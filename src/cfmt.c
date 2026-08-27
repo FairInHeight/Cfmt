@@ -30,7 +30,7 @@ char *fmtstr(const char *input)
     for (size_t index = 0; input[index] != '\0'; index++)
     {
         // Detect the complete \& sequence before copying either character.
-        // This consumes both '\' and '&' as cfmt syntax.
+        // This consumes both '\\' and '&' as cfmt syntax.
         if (input[index] == '\\' && input[index + 1] == '&')
         {
             // The next character will be processed as the format specifier.
@@ -125,7 +125,7 @@ char *fmtstr(const char *input)
             // -------------------------
             // BRIGHT BACKGROUNDS
             // -------------------------
-            else if (fspec == 'H')
+            else if (fspec == '*')
             {
                 char fspec2 = input[index + 1];
 
