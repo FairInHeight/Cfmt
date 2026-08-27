@@ -100,8 +100,13 @@ char *encode_color(Color color, char mode)
     return output;
 }
 
-Color uncode_color(const char *input) {
-    return decode_color(input[3]); }
+Color uncode_color(const char *input)
+{
+    if (input == NULL)
+        return DEFAULT;
+
+    return decode_color(input[3]);
+}
 
 
 
@@ -218,6 +223,9 @@ char *encode_style(Style style)
 
 Style uncode_style(const char *input)
 {
+    if (input == NULL)
+        return Reset;
+
     return decode_style(input[2]);
 }
 
