@@ -25,7 +25,7 @@ cfmt formatting begins with `\&`.
 | \&b | **Bold** |
 | \&d | Dim |
 | \&i | *Italic* |
-| \&u | <span style="text-decoration: underline;">Underline</span> |
+| \&u | <u>Underline</u> |
 | \&k | Blinking |
 | \&v | Inverted |
 | \&n | Hidden |
