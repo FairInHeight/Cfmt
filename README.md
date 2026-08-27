@@ -120,7 +120,7 @@ int printfx(const char *input, ...);
 int snprintfx(char *str, size_t size, const char *input, ...);
 int fprintfx(FILE *stream, const char *input, ...);
 ```
-`fmtstr()` decodes cfmt codes into ANSI escape sequences and returns the translated string. This is the main translation layer that runs the entire library. It is important to note that `fmtstr`, and therefore all `printfx` wrappers will automatically inject reset sequences after every newline. This is to make terminal messages much easier to construct and prevents format from bleeding to new lines after inputs. I will consider making this a feature you can toggle off in the API if there is demand for that.
+`fmtstr()` decodes cfmt codes into ANSI escape sequences and returns the translated string. This is the main translation layer that runs the entire library. It is important to note that `fmtstr`, and therefore all `printfx` wrappers will automatically inject reset sequences after every newline. This is to make terminal messages much easier to construct and prevents format from bleeding to subsequent lines. I will consider making this a feature you can toggle off in the API if there is demand for that.
 
 ## Example
 
