@@ -1,4 +1,4 @@
-# cfmt
+# Cfmt
 
 A lightweight C23 library for readable ANSI terminal formatting.
 
