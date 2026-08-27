@@ -25,7 +25,7 @@ $(LIB): $(OBJS)
 # Generate dependency files into deps/.
 build/%.o: src/%.c
 	@mkdir -p build deps
-	$(CC) $(CFLAGS) $(CPPFLAGS) -MMD -MP -MF deps/$*.d -c $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -MF deps/$*.d -c $< -o $@
 
 
 # Build the external test program using the static library.
