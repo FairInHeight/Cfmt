@@ -57,44 +57,16 @@ char *fmtstr(const char *input)
                 continue;
             }
 
-            char *ansi = NULL;
-
             DispatchContext ctx = {
                 .input = input,
                 .index = &index
             };
 
-            DispatchType type = dispatch(fspec);
+            DispatchHandler handler = dispatch(fspec);
+            char *ansi = NULL;
 
-            switch (type)
-            {
-                case DISPATCH_STYLE:
-                    ansi = dispatch_style(fspec);
-                    break;
-
-                case DISPATCH_FOREGROUND:
-                    ansi = dispatch_foreground(fspec);
-                    break;
-
-                case DISPATCH_BACKGROUND:
-                    ansi = dispatch_background(&ctx);
-                    break;
-
-                case DISPATCH_BRIGHT_FOREGROUND:
-                    ansi = dispatch_bright_foreground(&ctx);
-                    break;
-
-                case DISPATCH_BRIGHT_BACKGROUND:
-                    ansi = dispatch_bright_background(&ctx);
-                    break;
-
-                case DISPATCH_RGB:
-                    ansi = dispatch_rgb(&ctx);
-                    break;
-
-                case DISPATCH_INVALID:
-                    break;
-            }
+            if (handler != NULL)
+                ansi = handler(&ctx);
 
             // Invalid formatting is emitted literally.
             if (ansi == NULL)
