@@ -89,9 +89,9 @@ The RGB cube is encoded into the ANSI 256-color range using:
 16 + (36 × R) + (6 × G) + B
 ```
 
-## printf-style Formatting
+## Print Wrappers
 
-cfmt also supports common `printf` conversions:
+Cfmt wraps various standard library functions with its' own functions to give the user a set of functions that behave just like the standard library counterparts, but replace our custom escape codes with ANSI sequences in the return. This is very seamless as any function you would normally use can just be followed with x to incorporate Cfmt formatting/translation.
 
 ```c
 printfx("Hello, %s!\n", name);
@@ -120,8 +120,7 @@ int printfx(const char *input, ...);
 int snprintfx(char *str, size_t size, const char *input, ...);
 int fprintfx(FILE *stream, const char *input, ...);
 ```
-
-`fmtstr()` returns a newly allocated formatted string. The caller owns the returned memory and must `free()` it.
+fmtstr will take any string and decode cfmt codes to ANSI and return a string with format codes replaces with ANSI sequences. This is the main translation layer that runs the entire library.
 
 ## Example
 
@@ -174,7 +173,7 @@ cfmt/
 └── README.md
 ```
 
-cfmt is intentionally small and dependency-light, with the parser, codecs, state flags, and public interface separated into focused components.
+Cfmt is intentionally small and independent. The parser, codecs, state flags, and public interface are separated into focused components.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
