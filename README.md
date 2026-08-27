@@ -46,7 +46,7 @@ Use `*` for bright colors.
 | $\textcolor{yellow}{\text{Yellow}}$ | \\&3 | `ESC[33m` | \\&*3 | `ESC[93m` |
 | $\textcolor{blue}{\text{Blue}}$ | \\&4 | `ESC[34m` | \\&*4 | `ESC[94m` |
 | $\textcolor{magenta}{\text{Magenta}}$ | \\&5 | `ESC[35m` | \\&*5 | `ESC[95m` |
-| Cyan | \\&6 | `ESC[36m` | \\&*6 | `ESC[96m` |
+| $\textcolor{cyan}{\text{Cyan}$ | \\&6 | `ESC[36m` | \\&*6 | `ESC[96m` |
 | White | \\&7 | `ESC[37m` | \\&*7 | `ESC[97m` |
 | Color Reset | \\&9 | `ESC[39m` | \\&*9 | `ESC[99m` |
 
