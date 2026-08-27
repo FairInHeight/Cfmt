@@ -36,17 +36,17 @@ cfmt formatting begins with `\&`.
 
 ### Foreground Colors
 
-```text
-\&0  Black
-\&1  Red
-\&2  Green
-\&3  Yellow
-\&4  Blue
-\&5  Magenta
-\&6  Cyan
-\&7  White
-\&9  Default
-```
+| Cfmt Code | Style | Ansi Sequence |
+| :---: | :---: | :---: |
+| \\&0 | Black | `ESC[30m` |
+| \\&1 | Red | `ESC[31m` |
+| \\&2 | Green | `ESC[32m` |
+| \\&3 | Yellow | `ESC[33m` |
+| \\&4 | Blue | `ESC[34m` |
+| \\&5 | Magenta | `ESC[35m` |
+| \\&6 | Cyan | `ESC[36m` |
+| \\&7 | White | `ESC[37m` |
+| \\&9 | Default | `ESC[39m` |
 
 ### Background Colors
 
