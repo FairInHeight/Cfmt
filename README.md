@@ -56,7 +56,7 @@ Prefix the color with `h` for standard colors,
 or `H` for a bright colors.
 
 | Color | Highlight/BG Code | Ansi Sequence | Bright Highlight | Ansi Sequence |
-| :---: | :---: | :---: |
+| :---: | :---: | :---: | :---: | :---: |
 | Black | \\&h0 | `ESC[40m` | \\&H0 | `ESC[100m` |
 | Red | \\&h1 | `ESC[41m` | \\&H1 | `ESC[101m` |
 | Green | \\&h2 | `ESC[32m` | \\&H2 | `ESC[102m` |
