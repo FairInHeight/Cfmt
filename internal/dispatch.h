@@ -1,0 +1,17 @@
+#ifndef CFMT_DISPATCH_H
+#define CFMT_DISPATCH_H
+
+typedef enum
+{
+    DISPATCH_INVALID,
+    DISPATCH_STYLE,
+    DISPATCH_FOREGROUND,
+    DISPATCH_BACKGROUND,
+    DISPATCH_BRIGHT_FOREGROUND,
+    DISPATCH_BRIGHT_BACKGROUND,
+    DISPATCH_RGB
+} DispatchType;
+
+DispatchType dispatch(char spec);
+
+#endif

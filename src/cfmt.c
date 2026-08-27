@@ -6,10 +6,11 @@
 #include <string.h>
 
 #include "cfmt.h"
-#include "../internal/flags.h"
-#include "style.h"
 #include "color.h"
 #include "codec.h"
+#include "dispatch.h"
+#include "../internal/flags.h"
+#include "style.h"
 
 
 // Converts cfmt codes such as \&1 and \&h2 to ANSI.
@@ -58,6 +59,105 @@ char *fmtstr(const char *input)
 
             char *ansi = NULL;
 
+            DispatchType type = dispatch(fspec);
+
+            switch (type)
+            {
+                case DISPATCH_STYLE:
+                    
+                    style = decode_style(fspec);
+                    ansi = encode_style(style);
+                    break;
+
+                case DISPATCH_FOREGROUND:
+
+                    color = decode_color(fspec);
+                    ansi = encode_color(color, 'f');
+                    break;
+
+                case DISPATCH_BACKGROUND:
+                    
+                    char fspec2 = input[index + 1];
+
+                    if (!((fspec2 >= '0' && fspec2 <= '7') ||
+                        fspec2 == '9'))
+                        goto invalid;
+
+                    color = decode_color(fspec2);
+                    ansi = encode_color(color, 'b');
+                    // Consume the color digit.
+                    index++;
+                    
+                    break;
+
+                case DISPATCH_BRIGHT_FOREGROUND:
+                    
+                    char fspec2 = input[index + 1];
+
+                    if (!((fspec2 >= '0' && fspec2 <= '7') ||
+                        fspec2 == '9'))
+                        goto invalid;
+
+                    color = decode_color(fspec2);
+                    ansi = encode_color(color, 'B');
+                    // Consume the color digit.
+                    index++;
+                    
+                    break;
+
+                case DISPATCH_BRIGHT_BACKGROUND:
+                    
+                    char fspec2 = input[index + 1];
+
+                    if (!((fspec2 >= '0' && fspec2 <= '7') ||
+                        fspec2 == '9'))
+                        goto invalid;
+
+                    color = decode_color(fspec2);
+                    ansi = encode_color(color, 'h');
+                    // Consume the color digit.
+                    index++;
+                    
+                    break;
+
+                case DISPATCH_RGB:
+                    
+                    char fspec2 = input[index + 1];
+                    if (fspec2 == '\0' || fspec2 == '\n')
+                        goto invalid;
+
+                    char fspec3 = input[index + 2];
+                    if (fspec3 == '\0' || fspec3 == '\n')
+                        goto invalid;
+
+                    char fspec4 = input[index + 3];
+
+                    if ((fspec2 < '0' || fspec2 > '5') ||
+                        (fspec3 < '0' || fspec3 > '5') ||
+                        (fspec4 < '0' || fspec4 > '5'))
+                            goto invalid;
+
+                    // ANSI formula for decoding 6x6x6 color cube into a byte value.
+                    color = 16
+                            + (36 * (fspec2 - '0'))
+                            + (6  * (fspec3 - '0'))
+                            + (fspec4 - '0');
+
+                    ansi = encode_color256(color, 'f');
+                    // Consume all formatting digits.
+                    index += 3;
+                    break;
+
+                case DISPATCH_INVALID:
+                    
+                    invalid:
+                    output[out_index++] = '&';
+                    output[out_index++] = fspec;
+                    clr_(parsing);
+                    continue;
+            }
+
+            /*
             // -------------------------
             // STYLE
             // -------------------------
@@ -179,6 +279,7 @@ char *fmtstr(const char *input)
                     clr_(parsing);
                     continue;
             }
+            */
 
             // Encoding failed.
             if (ansi == NULL)
