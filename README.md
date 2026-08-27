@@ -23,7 +23,7 @@ cfmt formatting begins with `\&`.
 ### Styles
 
 
-$$
+$
 \begin{array}{|l|l|}
 \hline
 \text{\textbf{Format Code}} & \text{\textbf{Example}} \\
@@ -39,7 +39,7 @@ $$
 \text{r} & \text{Reset} \\
 \hline
 \end{array}
-$$
+$
 
 
 ### Foreground Colors
