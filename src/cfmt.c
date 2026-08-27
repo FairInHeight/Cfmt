@@ -79,27 +79,25 @@ char *fmtstr(const char *input)
                         fspec2 == '9'))
                         goto invalid;
 
-                    color = decode_color(fspec2);
-                    ansi = encode_color(color, 'b');
+                    ansi = dispatch_background(fspec2);
                     // Consume the color digit.
                     index++;
-                    
+
                     break;
                 }
 
                 case DISPATCH_BRIGHT_FOREGROUND:
-                {    
+                {
                     char fspec2 = input[index + 1];
 
                     if (!((fspec2 >= '0' && fspec2 <= '7') ||
                         fspec2 == '9'))
                         goto invalid;
 
-                    color = decode_color(fspec2);
-                    ansi = encode_color(color, 'B');
+                    ansi = dispatch_bright_foreground(fspec2);
                     // Consume the color digit.
                     index++;
-                    
+
                     break;
                 }
 
@@ -111,11 +109,10 @@ char *fmtstr(const char *input)
                         fspec2 == '9'))
                         goto invalid;
 
-                    color = decode_color(fspec2);
-                    ansi = encode_color(color, 'H');
+                    ansi = dispatch_bright_background(fspec2);
                     // Consume the color digit.
                     index++;
-                    
+
                     break;
                 }
 
@@ -136,20 +133,14 @@ char *fmtstr(const char *input)
                         (fspec4 < '0' || fspec4 > '5'))
                             goto invalid;
 
-                    // ANSI formula for decoding 6x6x6 color cube into a byte value.
-                    color = 16
-                            + (36 * (fspec2 - '0'))
-                            + (6  * (fspec3 - '0'))
-                            + (fspec4 - '0');
-
-                    ansi = encode_color256(color, 'f');
+                    ansi = dispatch_rgb(fspec2, fspec3, fspec4);
                     // Consume all formatting digits.
                     index += 3;
                     break;
                 }
 
                 case DISPATCH_INVALID:
-                    
+
                     invalid:
                     output[out_index++] = '&';
                     output[out_index++] = fspec;
