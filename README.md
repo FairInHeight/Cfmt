@@ -55,17 +55,17 @@ Use `*` for bright colors.
 Prefix the color with `h` for standard colors,
 or `H` for a bright colors.
 
-| Color | Highlight/BG Code | Ansi Sequence | Bright BG/Highlight | Ansi Sequence |
-| :---: | :---: | :---: | :---: | :---: |
-| Black | \\&h0 | `ESC[40m` | \\&H0 | `ESC[100m` |
-| Red | \\&h1 | `ESC[41m` | \\&H1 | `ESC[101m` |
-| Green | \\&h2 | `ESC[32m` | \\&H2 | `ESC[102m` |
-| Yellow | \\&h3 | `ESC[33m` | \\&H3 | `ESC[103m` |
-| Blue | \\&h4 | `ESC[34m` | \\&H4 | `ESC[104m` |
-| Magenta | \\&h5 | `ESC[35m` | \\&H5 | `ESC[105m` |
-| Cyan | \\&h6 | `ESC[36m` | \\&H6 | `ESC[106m` |
-| White | \\&h7 | `ESC[37m` | \\&H7 | `ESC[107m` |
-| BG/Highlight Reset | \\&h9 | `ESC[39m` | \\&H9 | `ESC[109m` |
+| Color | Highlight/BG Code | Ansi Sequence | Bright Color | Bright BG/Highlight | Ansi Sequence |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| $\textcolor{black}{\text{Black}}$ | \\&h0 | `ESC[40m` | $\textcolor{#7F7F7F}{\text{Bright Black}}$ | \\&H0 | `ESC[100m` |
+| $\textcolor{red}{\text{Red}}$ | \\&h1 | `ESC[41m` | $\textcolor{#FF5555}{\text{Bright Red}}$ | \\&H1 | `ESC[101m` |
+| $\textcolor{green}{\text{Green}}$ | \\&h2 | `ESC[32m` | $\textcolor{#55FF55}{\text{Bright Green}}$ | \\&H2 | `ESC[102m` |
+| Yellow | \\&h3 | `ESC[33m` |  | \\&H3 | `ESC[103m` |
+| Blue | \\&h4 | `ESC[34m` |  | \\&H4 | `ESC[104m` |
+| Magenta | \\&h5 | `ESC[35m` |  | \\&H5 | `ESC[105m` |
+| Cyan | \\&h6 | `ESC[36m` |  | \\&H6 | `ESC[106m` |
+| White | \\&h7 | `ESC[37m` |  | \\&H7 | `ESC[107m` |
+| BG/Highlight Reset | \\&h9 | `ESC[39m` |  | \\&H9 | `ESC[109m` |
 
 ### RGB Color Cube
 
