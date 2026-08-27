@@ -2,71 +2,41 @@
 #include "codec.h"
 #include "style.h"
 
-static char *dispatch_style_handler(DispatchContext *ctx)
-{
-    return dispatch_style(ctx);
-}
-
-static char *dispatch_foreground_handler(DispatchContext *ctx)
-{
-    return dispatch_foreground(ctx);
-}
-
-static char *dispatch_background_handler(DispatchContext *ctx)
-{
-    return dispatch_background(ctx);
-}
-
-static char *dispatch_bright_foreground_handler(DispatchContext *ctx)
-{
-    return dispatch_bright_foreground(ctx);
-}
-
-static char *dispatch_bright_background_handler(DispatchContext *ctx)
-{
-    return dispatch_bright_background(ctx);
-}
-
-static char *dispatch_rgb_handler(DispatchContext *ctx)
-{
-    return dispatch_rgb(ctx);
-}
-
-static DispatchHandler dispatch_table[256] =
+static const DispatchHandler dispatch_table[256] =
 {
     /* Styles */
-    ['b'] = dispatch_style_handler,
-    ['d'] = dispatch_style_handler,
-    ['i'] = dispatch_style_handler,
-    ['u'] = dispatch_style_handler,
-    ['k'] = dispatch_style_handler,
-    ['v'] = dispatch_style_handler,
-    ['n'] = dispatch_style_handler,
-    ['t'] = dispatch_style_handler,
-    ['r'] = dispatch_style_handler,
+    ['b'] = dispatch_style,
+    ['d'] = dispatch_style,
+    ['i'] = dispatch_style,
+    ['u'] = dispatch_style,
+    ['k'] = dispatch_style,
+    ['v'] = dispatch_style,
+    ['n'] = dispatch_style,
+    ['t'] = dispatch_style,
+    ['r'] = dispatch_style,
 
     /* Standard foreground colors */
-    ['0'] = dispatch_foreground_handler,
-    ['1'] = dispatch_foreground_handler,
-    ['2'] = dispatch_foreground_handler,
-    ['3'] = dispatch_foreground_handler,
-    ['4'] = dispatch_foreground_handler,
-    ['5'] = dispatch_foreground_handler,
-    ['6'] = dispatch_foreground_handler,
-    ['7'] = dispatch_foreground_handler,
-    ['9'] = dispatch_foreground_handler,
+    ['0'] = dispatch_foreground,
+    ['1'] = dispatch_foreground,
+    ['2'] = dispatch_foreground,
+    ['3'] = dispatch_foreground,
+    ['4'] = dispatch_foreground,
+    ['5'] = dispatch_foreground,
+    ['6'] = dispatch_foreground,
+    ['7'] = dispatch_foreground,
+    ['9'] = dispatch_foreground,
 
     /* Standard background colors */
-    ['h'] = dispatch_background_handler,
+    ['h'] = dispatch_background,
 
     /* Bright foreground colors */
-    ['*'] = dispatch_bright_foreground_handler,
+    ['*'] = dispatch_bright_foreground,
 
     /* Bright background colors */
-    ['H'] = dispatch_bright_background_handler,
+    ['H'] = dispatch_bright_background,
 
     /* RGB color */
-    ['c'] = dispatch_rgb_handler
+    ['c'] = dispatch_rgb
 };
 
 DispatchHandler dispatch(char spec)
