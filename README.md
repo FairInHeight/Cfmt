@@ -20,16 +20,10 @@ cfmt adds a compact formatting syntax to C strings and provides `printf`-style w
 
 cfmt formatting begins with `\&`.
 
-<table>
-<tr>
-<td>
-
-**This text is bold** inside a clean table box! <br>
-*Italic formats work right here too.*
-
-</td>
-</tr>
-</table>
+| Command / Tool | Description | Status |
+| :--- | :--- | :--- |
+| `fnm use` | Switch Node version | **Active** |
+| `docker compose up` | Launch services | *Running* |
 
 ### Styles
 
