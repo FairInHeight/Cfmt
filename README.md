@@ -22,57 +22,50 @@ cfmt formatting begins with `\&`.
 
 ### Styles
 
-| Cfmt Code | Style | Ansi Sequence |
+| Style | Cfmt Code | Ansi Sequence |
 | :---: | :---: | :---: |
-| \\&b | Bold | `ESC[1m` |
-| \\&d | Dim | `ESC[2m` |
-| \\&i | Italic | `ESC[3m` |
-| \\&u | Underline | `ESC[4m` |
-| \\&k | Blinking | `ESC[5m` |
-| \\&v | Inverted | `ESC[67m` |
-| \\&n | Hidden | `ESC[8m` |
-| \\&d | Strikethrough | `ESC[9m` |
-| \\&r | Style Reset | `ESC[0m` |
+| Bold | \\&b | `ESC[1m` |
+| Dim | \\&d | `ESC[2m` |
+| Italic | \\&i | `ESC[3m` |
+| Underline | \\&u | `ESC[4m` |
+| Blinking | \\&k | `ESC[5m` |
+| Inverted | \\&v | `ESC[67m` |
+| Hidden | \\&n | `ESC[8m` |
+| Strikethrough | \\&d | `ESC[9m` |
+| Style Reset | \\&r | `ESC[0m` |
 
-### Foreground Colors
+### Colors
 
-| Cfmt Code | Color | Ansi Sequence |
-| :---: | :---: | :---: |
-| \\&0 | Black | `ESC[30m` |
-| \\&1 | Red | `ESC[31m` |
-| \\&2 | Green | `ESC[32m` |
-| \\&3 | Yellow | `ESC[33m` |
-| \\&4 | Blue | `ESC[34m` |
-| \\&5 | Magenta | `ESC[35m` |
-| \\&6 | Cyan | `ESC[36m` |
-| \\&7 | White | `ESC[37m` |
-| \\&9 | Color Reset | `ESC[39m` |
+Use `*` for bright colors.
+
+| Color | Color Code | Ansi Sequence | Bright Color Code | Ansi Sequence |
+| :---: | :---: | :---: | :---: | :---: |
+| Black | \\&0 | `ESC[30m` | \\&*0 | `ESC[90m` |
+| Red | \\&1 | `ESC[31m` | \\&*1 | `ESC[91m` |
+| Green | \\&2 | `ESC[32m` | \\&*2 | `ESC[92m` |
+| Yellow | \\&3 | `ESC[33m` | \\&*3 | `ESC[93m` |
+| Blue | \\&4 | `ESC[34m` | \\&*4 | `ESC[94m` |
+| Magenta | \\&5 | `ESC[35m` | \\&*5 | `ESC[95m` |
+| Cyan | \\&6 | `ESC[36m` | \\&*6 | `ESC[96m` |
+| White | \\&7 | `ESC[37m` | \\&*7 | `ESC[97m` |
+| Color Reset | \\&9 | `ESC[39m` | \\&*9 | `ESC[99m` |
 
 ### Background Colors
 
-Prefix the color with `h`:
+Prefix the color with `h` for standard colors,
+or `H` for a bright colors.
 
-| Cfmt Code | Highlight | Ansi Sequence |
+| Color | Highlight/BG Code | Ansi Sequence | Bright Highlight | Ansi Sequence |
 | :---: | :---: | :---: |
-| \\&h0 | Black BG | `ESC[40m` |
-| \\&h1 | Red BG | `ESC[41m` |
-| ... |
-
-### Bright Colors
-
-Use `B` for a bright foreground:
-
-```text
-\&B1  Bright red
-\&B2  Bright green
-```
-
-Use `H` for a bright background:
-
-```text
-\&H1  Bright red background
-\&H2  Bright green background
-```
+| Black | \\&h0 | `ESC[40m` | \\&H0 | `ESC[100m` |
+| Red | \\&h1 | `ESC[41m` | \\&H1 | `ESC[101m` |
+| Green | \\&h2 | `ESC[32m` | \\&H2 | `ESC[102m` |
+| Yellow | \\&h3 | `ESC[33m` | \\&H3 | `ESC[103m` |
+| Blue | \\&h4 | `ESC[34m` | \\&H4 | `ESC[104m` |
+| Magenta | \\&h5 | `ESC[35m` | \\&H5 | `ESC[105m` |
+| Cyan | \\&h6 | `ESC[36m` | \\&H6 | `ESC[106m` |
+| White | \\&h7 | `ESC[37m` | \\&H7 | `ESC[107m` |
+| Color Reset | \\&h9 | `ESC[39m` | \\&H9 | `ESC[109m` |
 
 ### RGB Color Cube
 
