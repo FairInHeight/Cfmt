@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 #include "dispatch.h"
-#include "../internal/flags.h"
+#include "cfmt_flags.h"
 #include "core.h"
 
 // Converts cfmt codes such as \&1 and \&h2 to ANSI.
