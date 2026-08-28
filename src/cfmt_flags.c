@@ -1,3 +1,3 @@
-#include "flags.h"
+#include "cfmt_flags.h"
 
 unsigned char cfmt_flags = 0x00;
